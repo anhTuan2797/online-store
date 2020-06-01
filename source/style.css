@@ -1,0 +1,272 @@
+/* adding font */
+@font-face {
+    font-family: "roboto-black";
+    src: url("../font/Roboto-Black.ttf");
+    font-weight: normal;
+    font-size: normal;
+}
+
+@font-face {
+    font-family: "roboto-thin";
+    src: url("../font/Roboto-Thin.ttf");
+    font-weight: normal;
+    font-size: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* !navbar */
+.main-nav {
+    background-color: #333;
+    display: grid;
+    grid-template-columns: 35% 35% 30%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    min-height: 8vh;
+    font-family: "roboto-black";
+}
+
+/* nav links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    font-size: 18px;
+    /* background-color: red */
+}
+
+.nav-links li a {
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: white;
+    /* background-color: red; */
+}
+
+/*dropdown */
+.dropdown-contents {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #333;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    min-width: 100px;
+}
+
+.dropdown-contents a {
+    display: block;
+    font-size: 14px;
+    padding: 10px;
+    margin: 5px;
+    transition: .5s ease;
+}
+
+/* dropdown animation */
+.dropdown:hover .dropdown-contents {
+    display: block;
+}
+
+.dropdown-contents a:hover {
+    background-color: #666;
+    border-bottom: 2px solid white;
+}
+
+/* logo */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* search bar */
+.search-bar {
+    display: inline-block;
+
+}
+
+.search-bar button {
+    font-size: 17px;
+    padding: 6px;
+    border: none;
+    background-color: #ddd;
+}
+
+.search-bar input[type=text] {
+    padding: 5px;
+    font-size: 17px;
+    font-family: 'roboto-thin';
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
+/* search bar animation */
+.search-bar button:hover {
+    background-color: #ccc;
+}
+
+/* user button */
+.login-sign-up-group {
+    display: block;
+}
+
+.user-group {
+    display: none;
+}
+
+/* modal */
+.modal-button {
+    display: block;
+    background-color: inherit;
+    border: none;
+    color: white;
+    width: 95%;
+    font-family: 'roboto-black';
+    font-size: 14px;
+    padding: 10px;
+    margin: 5px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    transition: .5s ease;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: none;
+}
+
+.modal-contents {
+    background-color: white;
+    color: black;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 20% auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* modal button animation */
+.modal-button:hover {
+    background-color: #666;
+    border-bottom: 2px solid white;
+}
+
+/* modal navbar */
+.modal-nav-links {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+}
+
+.modal-nav-links li a {
+    text-decoration: none;
+    color: black;
+    margin: 10px;
+    text-transform: uppercase;
+}
+
+.close-button i {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 30px;
+}
+
+a#loginPageButton {
+    color: #0066FF;
+    border-bottom: 1px solid #0066FF;
+}
+
+/* page */
+.login-page {
+    display: none;
+}
+
+.sign-up-page {
+    display: none;
+}
+
+/* forms */
+.login-form {
+    display: grid;
+    grid-template-columns: 20% auto;
+    padding: 10px;
+    width: 70%;
+}
+
+.login-form input[type=password],
+.login-form input[type=email],
+.sign-up-form input[type=text],
+.sign-up-form input[type=password],
+.sign-up-form input[type=email],
+.sign-up-form input[type=tel] {
+    color: black;
+    background: transparent;
+    opacity: 0.4;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    width: 75%;
+    height: 20px;
+    float: left;
+}
+
+.login-form input[type=submit],
+.sign-up-form input[type=submit] {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    width: 75%;
+    float: left;
+    background-color: #333;
+    color: #CCFFFF;
+    cursor: pointer;
+}
+
+::placeholder {
+    color: black;
+    font-weight: bold;
+}
+
+.sign-up-form {
+    display: grid;
+    grid-template-columns: 20% auto;
+    padding: 10px;
+    width: 70%;
+}
+
+.grid-item {
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* forms animation */
+.login-form input[type=text]:focus,
+.login-form input[type=password]:focus,
+.login-form input[type=email]:focus,
+.sign-up-form input[type=text]:focus,
+.sign-up-form input[type=password]:focus,
+.sign-up-form input[type=email]:focus {
+    opacity: 0.8;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="../fontawesome-free-5.13.0-web/css/all.css">
+</head>
+
+<body>
+    <nav class="main-nav">
+        <ul class="nav-links">
+            <li>
+                <div class="dropdown">
+                    <a href="#">men</a>
+                    <div class="dropdown-contents">
+                        <a href="#">link1</a>
+                        <a href="#">link2</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a href="#">women</a>
+                    <div class="dropdown-contents">
+                        <a href="#">link1</a>
+                        <a href="#">link2</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">sale</a>
+            </li>
+        </ul>
+        <div class="logo">
+            <a href="#"><img src="../img/logoText50x51.png" alt="logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <div class="dropdown">
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-contents">
+                        <div class="login-sign-up-group">
+                            <button id="openLoginButton" class="modal-button" onclick="openLoginModal()">login</button>
+                            <button id="openSignUpButton" class="modal-button" onclick="openSignUpModal()">
+                                Sign up</button>
+                        </div>
+                        <div class="user-group">
+                            <a href="#">link1</a>
+                            <a href="#">link2</a>
+                            <a href="#">link3</a>
+                        </div>
+                    </div>
+                    <div class="modal" id="modal">
+                        <div class="modal-contents">
+                            <nav class="modal-navbar">
+                                <ul class="modal-nav-links">
+                                    <li>
+                                        <a href="#" id="loginPageButton">login</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" id="signUpPageButton">sign up</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="login-page" id="loginPage">
+                                <form action="#" method="get" id="loginForm" class="login-form">
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="email" name="loginAccountInput" id="loginAccountInput"
+                                            placeholder="Account">
+                                    </div>
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="password" name="loginPasswordInput" id="loginPasswordInput"
+                                            placeholder="password">
+                                    </div>
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="submit" value="login">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="sign-up-page" id="signUpPage">
+                                <form action="#" method="post" id="signUpForm" class="sign-up-form">
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="text" name="signUpNameInput" id="signUpNameInput"
+                                            placeholder="name">
+                                    </div>
+
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="email" name="signUpEmailInput" id="signUpEmailInput"
+                                            placeholder="email">
+                                    </div>
+
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="tel" name="signUpTelInput" id="signUpTelInput" placeholder="tel">
+                                    </div>
+
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="password" name="signUpPasswordInput" id="signUpPasswordInput"
+                                            placeholder="password">
+                                    </div>
+
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="password" name="signUpRePasswordInput" id="signUpRePasswordInput"
+                                            placeholder="confirm password">
+                                    </div>
+
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item">
+                                        <input type="submit" value="sign up">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </li>
+            <li>
+                <form action="#" method="get" class="search-bar">
+                    <input type="text" name="searchBarInput" id="searchBarInput" placeholder="Search...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+
+</html>
