@@ -19,6 +19,10 @@
     box-sizing: border-box;
 }
 
+body{
+    /* background-color: red; */
+}
+
 /* !navbar */
 .main-nav {
     background-color: #333;
@@ -29,6 +33,7 @@
     top: 0;
     min-height: 8vh;
     font-family: "roboto-black";
+    margin: auto;
 }
 
 /* nav links */
@@ -273,14 +278,77 @@ a#loginPageButton {
 
 /* main contents */
 
+.main-poster {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.main-poster-img {
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
+.select-section {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.select-section-header {
+    font-family: roboto-black;
+    font-weight: 18px;
+    text-transform: uppercase;
+    grid-column: 1/span 2;
+    margin-bottom: 10px;
+}
+
+
+.section-picture {
+    max-width: 100%;
+    max-height: 80%;
+    margin: auto;
+}
+
+.best-sellers-section {
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.best-sellers-section-header{
+    font-family: roboto-black;
+    font-weight: 18px;
+    text-transform: uppercase;
+    grid-column: 1/span 3;
+    margin-bottom: 10px;
+}
+
+.best-sellers-item {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+
+
 /* footer */
 .footer {
     background-color: #333;
     display: grid;
     grid-template-columns: 25% 25% 30% 20%;
+    margin: auto;
 }
 
 .footer h1 {
+    padding-bottom: 5px;
     color: white;
     text-transform: uppercase;
     font-size: 18px;
@@ -293,23 +361,9 @@ a#loginPageButton {
     color: white;
 }
 
-.copy-rights {
-    padding: 8px;
-}
-
-.contacts {
-    padding: 8px;
-
-}
-
-.about {
-    padding: 8px;
-
-}
-
-.social-media {
-    padding: 8px;
-
+.footer div{
+    padding: 10px;
+    /* border-right: 1px solid white; */
 }
 
 .social-media ul {
