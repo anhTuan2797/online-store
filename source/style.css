@@ -347,7 +347,7 @@ a#loginPageButton {
     margin-bottom: 40px;
 }
 
-.select-section-header {
+.select-section h1{
     font-family: roboto-black;
     font-weight: 18px;
     text-transform: uppercase;
@@ -355,12 +355,13 @@ a#loginPageButton {
     margin-bottom: 10px;
 }
 
-
 .section-picture {
     max-width: 100%;
     max-height: 80%;
     margin: auto;
 }
+
+
 
 .best-sellers-section {
     display: grid;
