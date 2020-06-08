@@ -274,7 +274,7 @@ a#loginPageButton {
 }
 
 /* main contents */
-
+/* new arrival poster */
 .new-arrival-poster {
     display: grid;
     grid-template-columns: 1fr;
@@ -306,13 +306,13 @@ a#loginPageButton {
     padding: 15px;
 }
 
-.new-arrival-contents h1{
+.new-arrival-contents h1 {
     font-family: roboto-black;
     text-transform: uppercase;
     font-size: 20px;
 }
 
-.new-arrival-contents p{
+.new-arrival-contents p {
     font-family: roboto-thin;
     font-size: 16px;
 }
@@ -333,7 +333,7 @@ a#loginPageButton {
     background-color: white;
 }
 
-
+/* gender section */
 .gender-section {
     display: grid;
     grid-template-columns: 35% 35%;
@@ -353,22 +353,22 @@ a#loginPageButton {
     margin-bottom: 10px;
 }
 
-.gender-section-picture{
+.gender-section-picture {
     height: 60%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
 }
 
-.gender-section-picture:hover img{
+.gender-section-picture:hover img {
     opacity: 0.3;
 }
 
-.gender-section-picture:hover .section-picture-contents{
+.gender-section-picture:hover .section-picture-contents {
     opacity: 1;
 }
 
-.gender-section-picture img{
+.gender-section-picture img {
     grid-column: 1;
     grid-row: 1;
     max-width: 100%;
@@ -389,7 +389,7 @@ a#loginPageButton {
     opacity: 0;
 }
 
-.section-picture-contents a{
+.section-picture-contents a {
     text-decoration: none;
     text-transform: uppercase;
     font-family: roboto-black;
@@ -403,9 +403,55 @@ a#loginPageButton {
 }
 
 .section-picture-contents a:hover {
-    opacity: 1;
     background-color: black;
     color: white;
+}
+
+/* category section */
+.category-section {}
+
+.shoes-category {}
+
+.shoes-slide {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    /* background-color: red; */
+}
+
+.shoes-slide img {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+.slide-button {
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    transition: .5 ease;
+}
+
+.slide-button a {
+    padding: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: roboto-black;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 12px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-self: center;
+    transition: .5s ease;
+}
+
+.slide-button a:hover {
+    background-color: #333;
 }
 
 

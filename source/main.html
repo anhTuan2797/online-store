@@ -175,8 +175,56 @@
                 </div>
             </div>
         </section>
-        <section class="categorize-section">
-            
+        <section class="category-section">
+            <div class="shoes-category">
+                <div class="shoes-slide">
+                    <img src="../img/sn007.jpg" alt="shoes slide">
+                    <div class="slide-button">
+                        <a href="#">shoes</a>
+                    </div>
+                </div>
+
+                <div class="shoes-slide">
+                    <img src="../img/sn006.jpg" alt="shoes slide">
+                    <div class="slide-button">
+                        <a href="#">shoes</a>
+                    </div>
+                </div>
+                <div class="shoes-slide">
+                    <img src="../img/sn004.jpg" alt="shoes slide">
+                    <div class="slide-button">
+                        <a href="#">shoes</a>
+                    </div>
+                </div>
+                <div class="shoes-slide">
+                    <img src="../img/sn003.jpg" alt="shoes slide">
+                    <div class="slide-button">
+                        <a href="#">shoes</a>
+                    </div>
+                </div>
+                <div class="shoes-slide">
+                    <img src="../img/sn001.jpg" alt="shoes slide">
+                    <div class="slide-button">
+                        <a href="#">shoes</a>
+                    </div>
+                </div>
+            <script>
+                var myIndex = 0;
+                carousel();
+                function carousel() {
+                    var i;
+                    var x = document.getElementsByClassName("shoes-slide");
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    myIndex++;
+                    if (myIndex > x.length) {
+                        myIndex = 1;
+                    }
+                    x[myIndex-1].style.display = "grid";
+                    setTimeout(carousel,4000);
+                }
+            </script>
         </section>
     </main>
     <footer class=" footer">
