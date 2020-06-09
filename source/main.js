@@ -44,6 +44,8 @@ window.addEventListener('load', function () {
         document.getElementById('loginPageButton').style.borderBottom =
             'none';
     }
+    // slideshow function
+    
 })
 
 // !navbar

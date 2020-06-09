@@ -210,19 +210,24 @@
                 </div>
             <script>
                 var myIndex = 0;
-                carousel();
-                function carousel() {
+                carousel("shoes-slide");
+                function carousel(className) {
+                    // console.log(className);
+                    var y = className
                     var i;
-                    var x = document.getElementsByClassName("shoes-slide");
+                    var x = document.getElementsByClassName(y);
                     for (i = 0; i < x.length; i++) {
                         x[i].style.display = "none";
                     }
+                    console.log(myIndex);
                     myIndex++;
                     if (myIndex > x.length) {
                         myIndex = 1;
                     }
                     x[myIndex-1].style.display = "grid";
-                    setTimeout(carousel,4000);
+                    setTimeout(function(){
+                        carousel(className);
+                    },4000)
                 }
             </script>
         </section>
