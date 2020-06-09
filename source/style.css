@@ -414,6 +414,14 @@ a#loginPageButton {
     justify-content: space-around;
 }
 
+.category-section h1 {
+    font-family: roboto-black;
+    font-weight: 18px;
+    text-transform: uppercase;
+    grid-column: 1/span 2;
+    margin-bottom: 10px;
+}
+
 .shoes-category,
 .t-shirt-category,
 .jean-category,
