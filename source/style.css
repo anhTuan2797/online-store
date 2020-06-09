@@ -23,7 +23,7 @@
 .main-nav {
     background-color: #333;
     display: grid;
-    grid-template-columns: 35% 35% 30%;
+    grid-template-columns: 40% 30% 30%;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
