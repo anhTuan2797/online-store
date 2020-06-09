@@ -408,18 +408,33 @@ a#loginPageButton {
 }
 
 /* category section */
-.category-section {}
+.category-section {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: space-around;
+}
 
-.shoes-category {}
+.shoes-category,
+.t-shirt-category,
+.jean-category,
+.snapback-category {
+    margin: 10px;
+}
 
-.shoes-slide {
+.shoes-slide,
+.t-shirt-slide,
+.jean-slide,
+.snapback-slide {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     /* background-color: red; */
 }
 
-.shoes-slide img {
+.shoes-slide img,
+.t-shirt-slide img,
+.jean-slide img,
+.snapback-slide img {
     grid-column: 1;
     grid-row: 1;
     max-width: 100%;

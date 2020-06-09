@@ -1,5 +1,8 @@
 //var
 var myShoesSlidesIndex = 0;
+var myTShirtSlidesIndex = 0;
+var myJeanSlidesIndex = 0;
+var mySnapbackSlidesIndex = 0;
 //main function 
 window.addEventListener('load', function () {
     // !navbar
@@ -48,7 +51,10 @@ window.addEventListener('load', function () {
     }
     //!main contents
     // slideshow function
-    carousel("shoes-slide");
+    carousel("shoes-slide",myShoesSlidesIndex);
+    carousel("t-shirt-slide",myTShirtSlidesIndex);
+    carousel("jean-slide", myJeanSlidesIndex);
+    carousel("snapback-slide",mySnapbackSlidesIndex);
 })
 
 // !navbar
@@ -85,20 +91,19 @@ function openLoginModal() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 }
 // change slide
-function carousel(className) {
+function carousel(className, mySlidesIndex) {
     var y = className;
     var i;
     var x = document.getElementsByClassName(y);
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
-    console.log(myShoesSlidesIndex);
-    myShoesSlidesIndex++;
-    if (myShoesSlidesIndex > x.length) {
-        myShoesSlidesIndex = 1;
+    mySlidesIndex++;
+    if (mySlidesIndex > x.length) {
+        mySlidesIndex = 1;
     }
-    x[myShoesSlidesIndex - 1].style.display = "grid";
+    x[mySlidesIndex - 1].style.display = "grid";
     setTimeout(function () {
-        carousel(className);
-    }, 4000);
+        carousel(className,mySlidesIndex);
+    }, 2000);
 }
