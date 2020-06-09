@@ -1,8 +1,10 @@
-//var
+// !global variables: 
+// slide variables:
 var myShoesSlidesIndex = 0;
 var myTShirtSlidesIndex = 0;
 var myJeanSlidesIndex = 0;
 var mySnapbackSlidesIndex = 0;
+
 //main function 
 window.addEventListener('load', function () {
     // !navbar
@@ -21,7 +23,7 @@ window.addEventListener('load', function () {
             document.getElementsByTagName('body')[0].style.overflow = 'auto';
         }
     })
-    // change to login page
+    // change modal to login page 
     document.getElementById('loginPageButton').onclick = function () {
         document.getElementById('loginPage').style.display = 'block';
         document.getElementById('signUpPage').style.display = 'none';
@@ -34,7 +36,7 @@ window.addEventListener('load', function () {
         document.getElementById('signUpPageButton').style.borderBottom =
             'none';
     }
-    // change to sign up page
+    // change modal to sign up page
     document.getElementById('signUpPageButton').onclick = function () {
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('signUpPage').style.display = 'block';
@@ -50,15 +52,15 @@ window.addEventListener('load', function () {
             'none';
     }
     //!main contents
-    // slideshow function
+    // slideshow functions call:
     carousel("shoes-slide",myShoesSlidesIndex);
     carousel("t-shirt-slide",myTShirtSlidesIndex);
     carousel("jean-slide", myJeanSlidesIndex);
     carousel("snapback-slide",mySnapbackSlidesIndex);
 })
 
-// !navbar
-// open sign up modal
+// !navbar function: 
+// open sign up modal function
 function openSignUpModal() {
     document.getElementById('modal').style.display = 'block';
     document.getElementById('loginPage').style.display = 'none';
@@ -75,7 +77,7 @@ function openSignUpModal() {
         'none';
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 }
-//open login modal
+//open login modal function
 function openLoginModal() {
     document.getElementById('modal').style.display = 'block';
     document.getElementById('loginPage').style.display = 'block';
@@ -90,7 +92,8 @@ function openLoginModal() {
         'none';
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 }
-// change slide
+// !main contents function:
+// change slide function
 function carousel(className, mySlidesIndex) {
     var y = className;
     var i;

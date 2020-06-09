@@ -273,7 +273,7 @@ a#loginPageButton {
     opacity: 0.8;
 }
 
-/* main contents */
+/* !main contents */
 /* new arrival poster */
 .new-arrival-poster {
     display: grid;
@@ -301,7 +301,6 @@ a#loginPageButton {
     z-index: 1;
     align-self: center;
     justify-self: end;
-    /* background-color: red; */
     color: white;
     padding: 15px;
 }
@@ -342,7 +341,6 @@ a#loginPageButton {
     width: 100%;
     margin-top: -30px;
     margin-bottom: 40px;
-    /* background-color: blue; */
 }
 
 .gender-section h1 {
@@ -362,6 +360,7 @@ a#loginPageButton {
     grid-template-rows: 1fr auto;
 }
 
+/* gender section animation */
 .gender-section-picture:hover img {
     opacity: 0.3;
 }
@@ -425,7 +424,6 @@ a#loginPageButton {
     padding-bottom: 5px;
     margin-bottom: 10px;
     border-bottom: 1px solid black;
-    /* background-color: red; */
 }
 
 .shoes-category,
@@ -462,7 +460,6 @@ a#loginPageButton {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
-    /* background-color: red; */
 }
 
 .shoes-slide img,
