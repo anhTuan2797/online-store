@@ -208,28 +208,7 @@
                         <a href="#">shoes</a>
                     </div>
                 </div>
-            <script>
-                var myIndex = 0;
-                carousel("shoes-slide");
-                function carousel(className) {
-                    // console.log(className);
-                    var y = className
-                    var i;
-                    var x = document.getElementsByClassName(y);
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";
-                    }
-                    console.log(myIndex);
-                    myIndex++;
-                    if (myIndex > x.length) {
-                        myIndex = 1;
-                    }
-                    x[myIndex-1].style.display = "grid";
-                    setTimeout(function(){
-                        carousel(className);
-                    },4000)
-                }
-            </script>
+           
         </section>
     </main>
     <footer class=" footer">

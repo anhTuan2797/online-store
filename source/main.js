@@ -1,3 +1,5 @@
+//var
+var myShoesSlidesIndex = 0;
 //main function 
 window.addEventListener('load', function () {
     // !navbar
@@ -44,8 +46,9 @@ window.addEventListener('load', function () {
         document.getElementById('loginPageButton').style.borderBottom =
             'none';
     }
+    //!main contents
     // slideshow function
-    
+    carousel("shoes-slide");
 })
 
 // !navbar
@@ -80,4 +83,22 @@ function openLoginModal() {
     document.getElementById('signUpPageButton').style.borderBottom =
         'none';
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+}
+// change slide
+function carousel(className) {
+    var y = className;
+    var i;
+    var x = document.getElementsByClassName(y);
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    console.log(myShoesSlidesIndex);
+    myShoesSlidesIndex++;
+    if (myShoesSlidesIndex > x.length) {
+        myShoesSlidesIndex = 1;
+    }
+    x[myShoesSlidesIndex - 1].style.display = "grid";
+    setTimeout(function () {
+        carousel(className);
+    }, 4000);
 }
