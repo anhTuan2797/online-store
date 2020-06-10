@@ -269,7 +269,8 @@ a#loginPageButton {
 .login-form input[type=email]:focus,
 .sign-up-form input[type=text]:focus,
 .sign-up-form input[type=password]:focus,
-.sign-up-form input[type=email]:focus {
+.sign-up-form input[type=email]:focus,
+.sign-up-form input[type=tel]:focus {
     opacity: 0.8;
 }
 
@@ -433,7 +434,7 @@ a#loginPageButton {
     margin: 10px;
 }
 
-.shoes-category{
+.shoes-category {
     grid-row: 3;
     grid-column: 1;
 }
