@@ -1,14 +1,14 @@
 /* adding font */
 @font-face {
     font-family: "roboto-black";
-    src: url("../font/Roboto-Black.ttf");
+    src: url("font/Roboto-Black.ttf");
     font-weight: normal;
     font-size: normal;
 }
 
 @font-face {
     font-family: "roboto-thin";
-    src: url("../font/Roboto-Thin.ttf");
+    src: url("font/Roboto-Thin.ttf");
     font-weight: normal;
     font-size: normal;
 }
