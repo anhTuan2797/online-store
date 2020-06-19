@@ -29,6 +29,9 @@ $(function () {
    slideShow("t-shirt-slide",myTShirtSlidesIndex);
    slideShow("jean-slide", myJeanSlidesIndex);
    slideShow("snapback-slide",mySnapbackSlidesIndex);
+
+   //!admin page function
+   
 });
 
 // open login modal function
@@ -97,4 +100,10 @@ function slideShow(className,mySlidesIndex){
 function toggleSidebarButton() {
     $(".admin-navbar").css("width","0");
     $(".admin-wrapper").css("grid-template-columns", "0%,100%");
+ }
+
+ // show all customer function
+ function showAllCustomers(){
+    //  )alert("click";
+    $("#customerSearchResult").load("loadAllCustomer.php");
  }

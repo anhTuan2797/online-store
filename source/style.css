@@ -537,22 +537,55 @@ a#loginPageButton {
 }
 
 /* !admin page */
+
+.admin-page{
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-template-rows: 10% auto 10%;
+    height: 100vh;
+    background-color: #ccc;
+}
+
+.admin-page-header {
+    display: grid;
+    justify-content: center;
+    border: 1px solid black;
+    background-color: #333;
+    color: white;
+    text-transform: uppercase;
+    font-family: roboto-black;
+    font-size: 32px;
+    padding: 10px;
+}
+
+.admin-page-contents-customers {
+    background-color: white;
+}
+
+.admin-page-contents-customers tr:nth-child(1),
+.admin-page-contents-customers tr:nth-child(2) {
+    background-color: #666;
+}
+
+.admin-page-contents-customers tr:hover {
+    background-color: #666;
+}
+
+.admin-page-contents-customers tr,th {
+    border: 1px solid black;
+}
+
 .admin-sidebar{
     background-color: #333;
-    position: absolute;
-    left: 0;
+    grid-row: 1/span 3;
     height: 100%;
-    display: none;
 }
 
 .admin-sidebar ul {
     list-style: none;
     text-transform: uppercase;
     height: 100%;
-    display: grid;
-    grid-template-rows: 30% 30% 30%;
-    justify-content: space-around;
-
+    display: block;
 }
 
 .admin-sidebar li a {
@@ -567,4 +600,41 @@ a#loginPageButton {
     color: white;
 }
 
+.admin-page-footer {
+    background-color: #333;
+    border: 1px solid black;
+    display: grid;
+}
 
+.admin-page-footer button {
+    background-color: #666;
+    cursor: pointer;
+}
+
+.admin-page-footer button:hover {
+    background-color: #333;
+}
+
+/* round button */
+.round-btn-red,
+.round-btn-blue {
+color: white;
+display:block;
+height: 40px;
+width: 40px;
+border-radius: 50%;
+border: 1px solid red;
+transition: .5s ease-in;
+}
+
+.round-btn-red {
+    background-color: red;
+}
+.round-btn-blue {
+    background-color: blue;
+}
+
+.round-btn-red:hover, 
+.round-btn-blue:hover {
+    background-color: black;
+}
