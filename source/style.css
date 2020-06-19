@@ -537,6 +537,34 @@ a#loginPageButton {
 }
 
 /* !admin page */
+.admin-sidebar{
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    display: none;
+}
 
+.admin-sidebar ul {
+    list-style: none;
+    text-transform: uppercase;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 30% 30% 30%;
+    justify-content: space-around;
+
+}
+
+.admin-sidebar li a {
+    text-decoration: none;
+    color: #666;
+    padding: 10px;
+    margin-bottom: 5px;
+    transition: .5s ease-in;
+}
+
+.admin-sidebar li:hover a{
+    color: white;
+}
 
 
