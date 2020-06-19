@@ -93,3 +93,8 @@ function slideShow(className,mySlidesIndex){
         slideShow(className,mySlidesIndex);
     }, 2000);
 }
+// toggle sidebar button
+function toggleSidebarButton() {
+    $(".admin-navbar").css("width","0");
+    $(".admin-wrapper").css("grid-template-columns", "0%,100%");
+ }

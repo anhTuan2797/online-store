@@ -19,6 +19,7 @@
     box-sizing: border-box;
 }
 
+/* !landing page */
 /* !navbar */
 .main-nav {
     background-color: #333;
@@ -534,3 +535,8 @@ a#loginPageButton {
     grid-template-columns: 20% 20% 20%;
     list-style: none;
 }
+
+/* !admin page */
+
+
+
