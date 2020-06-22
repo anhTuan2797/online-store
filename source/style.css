@@ -184,6 +184,22 @@
     text-transform: uppercase;
 }
 
+.modal-form {
+    justify-content: center;
+    display: grid;
+    background-color: white;
+    color: black;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 20% auto;
+    padding: 20px;
+    width: 50%;
+}
+
+.modal-form input[type=text] {
+    
+}
+
 .close-button i {
     position: absolute;
     right: 0;
@@ -637,4 +653,47 @@ transition: .5s ease-in;
 .round-btn-red:hover, 
 .round-btn-blue:hover {
     background-color: black;
+}
+
+/* grid form */
+.grid-form {
+    display: grid;
+    grid-template-columns: 20% 30% 50%;
+}
+
+.grid-form label {
+    grid-column: 1;
+}
+
+.grid-form input {
+    grid-column: 2;
+}
+
+/* notification */
+.notification {
+    display: grid;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 20% auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.notification button {
+    background-color: red;
+    color: black;
+    font-family: roboto-thin;
+    font-weight: bolder;
+    text-transform: uppercase;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border: none;
+    width: auto;
+    padding: 10px;
+    margin-top: 10px;
+    justify-self: center;
+    cursor: pointer;
 }

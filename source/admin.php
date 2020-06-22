@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.css">
     <script src="app.js"></script>
+    <link rel="shortcut icon" href="#">
 </head>
 
 <body>
@@ -20,27 +21,27 @@
         <nav class="admin-sidebar">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="#" id="customersBtn" style="color:white;"> 
                         <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         <p>customers</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="ordersBtn">
                         <i class="fas fa-truck-moving fa-4x"></i>
                         <p>orders</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="productsBtn">
                         <i class="fas fa-box fa-4x"></i>
                         <p>products</p>
                     </a>
                 </li>
             </ul>
         </nav>
-        <div class="admin-page-header">
-            And back fiend to from fiery myself black thy, dreary.
+        <div class="admin-page-header" style="text-transform: uppercase; letter-spacing: 2px;">
+            customers
         </div>
 
         <table class="admin-page-contents-customers" id="customerSearchResult">
@@ -62,13 +63,11 @@
                 <th></th>
             </tr>
         </table>
-        
+
         <div class="admin-page-footer">
-                <button><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>
-                <button id="adminShowAllCustomerBtn" onclick="showAllCustomers()"><i class="fa fa-list-alt fa-3x" aria-hidden="true"></i></button>
+            <button id="adminShowAllCustomerBtn" onclick="showAllCustomers()"><i class="fa fa-list-alt fa-3x"
+                    aria-hidden="true"></i></button>
         </div>
     </div>
-
 </body>
-
 </html>
