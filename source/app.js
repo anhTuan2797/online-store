@@ -31,9 +31,6 @@ $(function () {
     slideShow("snapback-slide", mySnapbackSlidesIndex);
 
     //!admin page function
-    $('#ordersBtn').click(function(){
-        alert("click");
-    })
 });
 
 // open modal function 
@@ -112,34 +109,103 @@ function toggleSidebarButton() {
 
 // show all customer function
 function showAllCustomers() {
-    $("#customerSearchResult").load("loadAllCustomer.php");
+    $("#resultTable").load("loadAllCustomer.php");
 }
 // show delete customer notification:
 function showDeleteCustomerNotification(customerId) {
     var text = '<div class="modal" style="display: block;">' +
         '<div class="notification">' +
         '<p>Are you sure you want to delete this customer?</p>' +
-        ' <button id = "deleteConfirm" onclick="deleteCustomer('+customerId+')">yes</button>' +
+        ' <button id = "deleteConfirm" onclick="deleteCustomer(' + customerId + ')">yes</button>' +
         '</div>' +
         '</div>';
     $('.admin-page').append(text);
 }
 // show edit customer form:
-function showEditCustomerForm(customerName,customerSex,customerEmail,customerTel){
+function showEditCustomerForm(customerName, customerSex, customerEmail, customerTel) {
     var text = '';
 }
-// delete customer
-function deleteCustomer(customerId){
-    // alert(customerId);
+delete customer
+
+function deleteCustomer(customerId) {
     $.ajax({
         type: "post",
         url: "deleteCustomer.php",
-        data: {customerId : customerId},
+        data: {
+            customerId: customerId
+        },
         success: function (response) {
             console.log("success");
             closeModal();
-            $("#customerSearchResult").load("loadAllCustomer.php");
+            $("#resultTable").load("loadAllCustomer.php");
         }
     });
 }
 
+function searchCustomer() {
+    var customerId = $('#userId').val();
+    var customerTel = $('#userTel').val();
+    var customerEmail = $('#userEmail').val();
+    var customerName = $('#userName').val();
+    var customerSex = $('#userSex').val();
+    if (customerId) {
+        $.ajax({
+            type: "get",
+            url: "searchCustomerById.php",
+            data: {
+                customerId: customerId
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    } else if (customerTel) {
+        $.ajax({
+            type: "get",
+            url: "searchCustomerByTel.php",
+            data: {
+                customerTel: customerTel
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    } else if (customerEmail) {
+        // alert(customerEmail);
+        customerEmail = "'"+customerEmail+"'";
+        $.ajax({
+                type: "get",
+                url: "searchCustomerByEmail.php",
+                data: {
+                    customerEmail: customerEmail
+                },
+                success: function (result) {
+                    $('#resultTable').empty();
+                    $('#resultTable').append(result);
+                }
+            });
+    }else if((customerName)||(customerSex)){
+        customerName = "'"+customerName+"'";
+        customerSex = "'"+customerSex+"'";
+        $.ajax({
+            type: "get",
+            url: "searchCustomerByNameAndSex.php",
+            data: {
+                customerName: customerName,
+                customerSex: customerSex
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }else{
+        $('#resultTable').empty();
+    }
+}
+
+function test() {
+    alert("click");
+}

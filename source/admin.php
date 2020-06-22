@@ -21,7 +21,7 @@
         <nav class="admin-sidebar">
             <ul>
                 <li>
-                    <a href="#" id="customersBtn" style="color:white;"> 
+                    <a href="#" id="customersBtn" style="color:white;">
                         <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         <p>customers</p>
                     </a>
@@ -43,15 +43,36 @@
         <div class="admin-page-header" style="text-transform: uppercase; letter-spacing: 2px;">
             customers
         </div>
-
-        <table class="admin-page-contents-customers" id="customerSearchResult">
+        <div class="table-contents" id="tableContents">
+            <table class="admin-page-contents">
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>sex</th>
+                    <th>email</th>
+                    <th>tel</th>
+                    <th> </th>
+                </tr>
+                <tr>
+                    <form method="get"" id=" customerSearchForm"></form>
+                    <th><input type="number" name="user_id" id="userId"></th>
+                    <th><input type="text" name="user_name" id="userName"></th>
+                    <th><input type="text" name="user_sex" id="userSex"></th>
+                    <th><input type="email" name="user_email" id="userEmail"></th>
+                    <th><input type="tel" name="user_tel" id="userTel"></th>
+                    <th><button onclick="searchCustomer()"><i class="fa fa-search fa-2x"
+                                aria-hidden="true"></i></button></th>
+                </tr>
+            </table>
+            <table class="result-table" id="resultTable">
+            </table>
+            <!-- <table class="admin-page-contents" id="ordersSearchResult">
             <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>sex</th>
-                <th>email</th>
-                <th>tel</th>
-                <th></th>
+                <th>order id</th>
+                <th>customer id</th>
+                <th>order sum</th>
+                <th>order date</th>
+                <th>status</th>
             </tr>
             <tr>
                 <form method="get"></form>
@@ -62,7 +83,9 @@
                 <th><input type="tel" name="user_tel" id="userTel"></th>
                 <th></th>
             </tr>
-        </table>
+        </table> -->
+        </div>
+
 
         <div class="admin-page-footer">
             <button id="adminShowAllCustomerBtn" onclick="showAllCustomers()"><i class="fa fa-list-alt fa-3x"
@@ -70,4 +93,5 @@
         </div>
     </div>
 </body>
+
 </html>

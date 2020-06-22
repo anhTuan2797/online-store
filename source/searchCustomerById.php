@@ -4,7 +4,7 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
 {
     $myDatabase = new database();
     $query = "SELECT customer_id,customer_name,customer_sex,customer_email,customer_tel 
-    FROM school_project.customer_tbl";
+    FROM school_project.customer_tbl WHERE customer_id=" .$_GET['customerId'];
     $stmt = $myDatabase->prepare($query);
     if($stmt){
         $stmt->execute();
@@ -21,6 +21,6 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
             </th>";
             echo"</tr>";
         }
+        $stmt->close();
     }
-    $stmt->close();
-} 
+}

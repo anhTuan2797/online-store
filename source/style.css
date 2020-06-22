@@ -566,6 +566,7 @@ a#loginPageButton {
     display: grid;
     justify-content: center;
     border: 1px solid black;
+    border-bottom: none;
     background-color: #333;
     color: white;
     text-transform: uppercase;
@@ -574,20 +575,33 @@ a#loginPageButton {
     padding: 10px;
 }
 
-.admin-page-contents-customers {
+.admin-page-contents {
+    margin-bottom: 0;
     background-color: white;
+    width: 100%;
+    font-family: roboto-black;
+    text-transform: uppercase;
 }
 
-.admin-page-contents-customers tr:nth-child(1),
-.admin-page-contents-customers tr:nth-child(2) {
+.admin-page-contents tr {
+    display: grid;
+    grid-template-columns: 20% 20% 15% 20% 20% 5%;
+}
+
+.admin-page-contents tr th {
+    width: 100%;
+}
+
+.admin-page-contents tr:nth-child(1),
+.admin-page-contents tr:nth-child(2) {
     background-color: #666;
 }
 
-.admin-page-contents-customers tr:hover {
+.admin-page-contents tr:hover {
     background-color: #666;
 }
 
-.admin-page-contents-customers tr,th {
+.admin-page-contents tr,th {
     border: 1px solid black;
 }
 
@@ -645,9 +659,11 @@ transition: .5s ease-in;
 
 .round-btn-red {
     background-color: red;
+    cursor: pointer;
 }
 .round-btn-blue {
     background-color: blue;
+    cursor: pointer;
 }
 
 .round-btn-red:hover, 
@@ -696,4 +712,26 @@ transition: .5s ease-in;
     margin-top: 10px;
     justify-self: center;
     cursor: pointer;
+}
+
+.table-contents {
+    width: 100%;
+    
+}
+
+.result-table {
+   margin-top: 0;
+    width: 100%;
+    background-color: white;
+    font-family: roboto-thin;
+}
+
+.result-table tr {
+    display: grid;
+    grid-template-columns: 20% 20% 15% 20% 20% 5%;
+}
+
+.result-table tr:hover{
+    background-color: blue;
+    font-weight: bold;
 }

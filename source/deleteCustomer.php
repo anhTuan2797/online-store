@@ -9,6 +9,5 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
         $stmt->execute();
     }
     $stmt->close();
-   echo($_POST['customerId']);
 }
 
