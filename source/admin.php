@@ -21,30 +21,30 @@
         <nav class="admin-sidebar">
             <ul>
                 <li>
-                    <a href="#" id="customersBtn" style="color:white;">
+                    <a href="#" id="customersBtn" style="color:white;" onclick="changeToCustomersTable()">
                         <i class="fa fa-user fa-4x" aria-hidden="true"></i>
                         <p>customers</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="ordersBtn">
+                    <a href="#" id="ordersBtn" onclick="changeToOrdersTable()">
                         <i class="fas fa-truck-moving fa-4x"></i>
                         <p>orders</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="productsBtn">
+                    <a href="#" id="productsBtn" onclick="changeToProductsTable()">
                         <i class="fas fa-box fa-4x"></i>
                         <p>products</p>
                     </a>
                 </li>
             </ul>
         </nav>
-        <div class="admin-page-header" style="text-transform: uppercase; letter-spacing: 2px;">
+        <div class="admin-page-header" style="text-transform: uppercase; letter-spacing: 2px;" id="adminPageHeader">
             customers
         </div>
         <div class="table-contents" id="tableContents">
-            <table class="admin-page-contents">
+            <table class="admin-page-contents" id="adminPageContentsCustomer">
                 <tr>
                     <th>id</th>
                     <th>name</th>
@@ -64,32 +64,59 @@
                                 aria-hidden="true"></i></button></th>
                 </tr>
             </table>
-            <table class="result-table" id="resultTable">
+            <!-- <table class="admin-page-contents" >
+                <tr>
+                    <th>id</th>
+                    <th>customer id</th>
+                    <th>sum</th>
+                    <th>date</th>
+                    <th>status</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <form method="get"" id=" customerSearchForm"></form>
+                    <th><input type="number" name="order_id" id="orderId"></th>
+                    <th><input type="number" name="customer_id" id="customerId"></th>
+                    <th><input type="number" name="order_sum" id="orderSum"></th>
+                    <th><input type="date" name="order_date" id="orderDate"></th>
+                    <th><input type="text" name="order_status" id="orderStatus"></th>
+                    <th><button onclick="test()"><i class="fa fa-search fa-2x"
+                                aria-hidden="true"></i></button></th>
+                </tr>
+            </table> -->
+            <table class="admin-page-contents-product" id="adminPageContentsProduct" style="display: none;">
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>in stock</th>
+                    <th>price</th>
+                    <th>platform</th>
+                    <th>sale</th>
+                    <th>category</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <form method="get">
+                        <th><input type="number" name="productId" id="productID"></th>
+                        <th><input type="text" name="productName" id="productName"></th>
+                        <th><input type="number" name="productInStock" id="productInStock"></th>
+                        <th><input type="number" name="productPrice" id="productPrice"></th>
+                        <th><input type="text" name="productPlatform" id="productPlatform"></th>
+                        <th><input type="number" name="productSale" id="productSale"></th>
+                        <th><input type="text" name="productCategory" id="productCategory"></th>
+                        <th><button onclick="test()"><i class="fa fa-search fa-2x" aria-hidden="true"></i></button></th>
+                    </form>
+                </tr>
             </table>
-            <!-- <table class="admin-page-contents" id="ordersSearchResult">
-            <tr>
-                <th>order id</th>
-                <th>customer id</th>
-                <th>order sum</th>
-                <th>order date</th>
-                <th>status</th>
-            </tr>
-            <tr>
-                <form method="get"></form>
-                <th><input type="number" name="user_id" id="userId"></th>
-                <th><input type="text" name="user_name" id="userName"></th>
-                <th><input type="text" name="user_sex" id="userSex"></th>
-                <th><input type="email" name="user_email" id="userEmail"></th>
-                <th><input type="tel" name="user_tel" id="userTel"></th>
-                <th></th>
-            </tr>
-        </table> -->
+            <table class="result-table-customer" id="resultTable">
+            </table>
+
         </div>
-
-
-        <div class="admin-page-footer">
-            <button id="adminShowAllCustomerBtn" onclick="showAllCustomers()"><i class="fa fa-list-alt fa-3x"
+        <div class="modal" id="updateModal"></div>
+        <div class="admin-page-footer" id="adminPageFooter">
+            <button id="ShowAllCustomerBtn" onclick="loadAllCustomers()"><i class="fa fa-list-alt fa-3x"
                     aria-hidden="true"></i></button>
+                    
         </div>
     </div>
 </body>

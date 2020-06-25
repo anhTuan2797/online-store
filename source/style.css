@@ -566,7 +566,7 @@ a#loginPageButton {
     display: grid;
     justify-content: center;
     border: 1px solid black;
-    border-bottom: none;
+    border-bottom: 1px solid white;
     background-color: #333;
     color: white;
     text-transform: uppercase;
@@ -581,6 +581,7 @@ a#loginPageButton {
     width: 100%;
     font-family: roboto-black;
     text-transform: uppercase;
+    border: none;
 }
 
 .admin-page-contents tr {
@@ -605,8 +606,35 @@ a#loginPageButton {
     border: 1px solid black;
 }
 
+/* admin page contents product */
+.admin-page-contents-product {
+    margin-bottom: 0;
+    background-color: #666;
+    width: 100%;
+    font-family: roboto-black;
+    text-transform: uppercase;
+}
+
+.admin-page-contents-product tr{
+    display: grid;
+    grid-template-columns: 10% 20% 10% 10% 20% 10% 10% 10%;
+}
+
+.admin-page-contents-product tr th {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-page-contents-product tr th  input[type=text],
+.admin-page-contents-product tr th  input[type=number]
+{
+    width: 50%;
+}
+
+/* admin side bar */
 .admin-sidebar{
     background-color: #333;
+    border-right: 1px solid white;
     grid-row: 1/span 3;
     height: 100%;
 }
@@ -623,10 +651,13 @@ a#loginPageButton {
     color: #666;
     padding: 10px;
     margin-bottom: 5px;
+}
+
+.admin-sidebar li a i{
     transition: .5s ease-in;
 }
 
-.admin-sidebar li:hover a{
+.admin-sidebar li:hover a i{
     color: white;
 }
 
@@ -687,6 +718,7 @@ transition: .5s ease-in;
 
 /* notification */
 .notification {
+   
     display: grid;
     justify-content: center;
     background-color: white;
@@ -698,6 +730,10 @@ transition: .5s ease-in;
     width: 50%;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
+
+/*  position: absolute;
+top:-200px;
+    left: 200px; */
 
 .notification button {
     background-color: red;
@@ -718,20 +754,92 @@ transition: .5s ease-in;
     width: 100%;
     
 }
-
-.result-table {
+/* result table customer */
+.result-table-customer {
    margin-top: 0;
     width: 100%;
     background-color: white;
     font-family: roboto-thin;
 }
 
-.result-table tr {
+.result-table-customer tr {
     display: grid;
     grid-template-columns: 20% 20% 15% 20% 20% 5%;
 }
 
-.result-table tr:hover{
+/* todo: add result table product */
+
+
+/* result table product */
+.result-table-product {
+    margin-top: 0;
+     width: 100%;
+     background-color: white;
+     font-family: roboto-thin;
+ }
+
+ .result-table-product tr {
+    display: grid;
+    grid-template-columns: 10% 20% 10% 10% 20% 10% 10% 10%;
+ }
+
+.result-table-customer tr:hover{
     background-color: blue;
     font-weight: bold;
+}
+
+/* admin modal form */
+.admin-modal-form {
+    display: grid;
+    grid-template-columns: 10% 30%;
+    grid-template-rows: 10%;
+    justify-content: center;
+    background-color: white;
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    top: 20px;
+    left: 200px;
+    margin: 20px;
+    
+}
+
+.admin-modal-form h1{
+    grid-column: 1/span 2;
+    grid-row: 1;
+    font-size: 25px;
+}
+
+.admin-modal-form label {
+    font-family: roboto-black;
+}
+
+.admin-modal-form input[type="text"],
+.admin-modal-form input[type="number"]
+{
+    border: 2px solid #ccc;
+    font-family: roboto-thin;
+    font-weight: bold;
+    background-color: #f2f2f2;
+    margin: 5px;
+}
+
+.admin-modal-form textarea {
+    border: 2px solid #ccc;
+    font-family: roboto-thin;
+    font-weight: bold;
+    background-color: #f2f2f2;
+    margin: 5px;
+}
+
+.admin-modal-form button{
+    grid-column: 2;
+    border-radius: 5px;
+    /* border: 1px solid black; */
+    background-color:#4caf50;
+    color: white;
+    font-family: roboto-black;
+    text-transform: uppercase;
+    margin: 5px;
+    cursor: pointer;
 }
