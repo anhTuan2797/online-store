@@ -3,7 +3,11 @@ include_once 'database.php';
 if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) )
 {
     $myDatabase = new database();
-    $query = "SELECT * FROM school_project.product_tbl";
+    $query = "SELECT*FROM school_project.product_tbl WHERE " 
+    ."product_inStock=" .$_GET['productInStock']." or "
+    ."product_price=" .$_GET['productPrice']." or "
+    ."category_id=" ."\"".$_GET['productCategory']."\""." or "
+    ."product_platform=" ."\"".$_GET['productPlatform']."\"";
     $stmt = $myDatabase->prepare($query);
     if($stmt){
         $stmt->execute();
@@ -27,5 +31,4 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
         }
         $stmt->close();
     }
-    // echo "supp";
 }

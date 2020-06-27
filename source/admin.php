@@ -64,7 +64,7 @@
                                 aria-hidden="true"></i></button></th>
                 </tr>
             </table>
-            <!-- <table class="admin-page-contents" >
+            <table class="admin-page-contents-order" >
                 <tr>
                     <th>id</th>
                     <th>customer id</th>
@@ -83,7 +83,7 @@
                     <th><button onclick="test()"><i class="fa fa-search fa-2x"
                                 aria-hidden="true"></i></button></th>
                 </tr>
-            </table> -->
+            </table>
             <table class="admin-page-contents-product" id="adminPageContentsProduct" style="display: none;">
                 <tr>
                     <th>id</th>
@@ -97,14 +97,14 @@
                 </tr>
                 <tr>
                     <form method="get">
-                        <th><input type="number" name="productId" id="productID"></th>
+                        <th><input type="number" name="productId" id="productId"></th>
                         <th><input type="text" name="productName" id="productName"></th>
                         <th><input type="number" name="productInStock" id="productInStock"></th>
                         <th><input type="number" name="productPrice" id="productPrice"></th>
                         <th><input type="text" name="productPlatform" id="productPlatform"></th>
                         <th><input type="number" name="productSale" id="productSale"></th>
                         <th><input type="text" name="productCategory" id="productCategory"></th>
-                        <th><button onclick="test()"><i class="fa fa-search fa-2x" aria-hidden="true"></i></button></th>
+                        <th><button onclick="searchProduct()" type="button"><i class="fa fa-search fa-2x" aria-hidden="true"></i></button></th>
                     </form>
                 </tr>
             </table>
@@ -112,12 +112,15 @@
             </table>
 
         </div>
-        <div class="modal" id="updateModal"></div>
+        <div class="modal" id="updateModal">
+            
+        </div>
         <div class="admin-page-footer" id="adminPageFooter">
             <button id="ShowAllCustomerBtn" onclick="loadAllCustomers()"><i class="fa fa-list-alt fa-3x"
                     aria-hidden="true"></i></button>
                     
         </div>
+        
     </div>
 </body>
 

@@ -142,32 +142,81 @@ function showDeleteCustomerNotification(customerId) {
         '</div>';
     $('.admin-page').append(text);
 }
-// show edit product notification:
-function showEditProductNotification(
+// show edit product form:
+function showEditProductForm(
     productId, productName, productInStock, productPrice, productPlatform, productSale, productCategory, productDetail, productImgUrl) {
-    var text =
-        '<form method="post" class="admin-modal-form">' +
-        '<h1 id="formProductId">Product id: ' + productId + '</h1>' +
-        '<label for=" productName">Name</label>' +
-        '<input type="text" name="productName" id="formProductName' + productId + '" value="' + productName + '">' +
-        '<label for="productInStock">In stock</label>' +
-        '<input type="number" name="productInStock" id="formProductInStock' + productId + '" value="' + productInStock + '">' +
-        '<label for="productPrice">Price</label>' +
-        '<input type="number" name="productPrice" id="formProductPrice' + productId + '" value="' + productPrice + '">' +
-        '<label for="productPlatform">Platform</label>' +
-        '<input type="text" name="productPlatform" id="formProductPlatform' + productId + '" value="' + productPlatform + '">' +
-        '<label for="productDetail">Detail</label>' +
-        '<textarea name="productDetail" id="formProductDetail' + productId + '" cols="30" rows="10">' + productDetail + '</textarea>' +
-        '<label for="productImgUrl">Img Url</label>' +
-        '<input type="text" name="productImgUrl" id="formProductImgUrl' + productId + '" value="' + productImgUrl + '">' +
-        '<label for="productCategory">Category</label>' +
-        '<input type="text" name="productCategory" id="formProductCategory' + productId + '" value="' + productCategory + '">' +
-        '<label for="productSale">Sale</label>' +
-        '<input type="number" name="productSale" id="formProductSale' + productId + '" value="' + productSale + '">' +
-        '<button type="button" onclick="updateProduct(' + productId + ')">submit</button>' +
-        '</form>';
-    $("#updateModal").append(text);
-    $("#updateModal").show();
+    $.ajax({
+        type: "get",
+        url: "loadAllCategory.php",
+        data: {
+            productCategory: productCategory
+        },
+        success: function (result) {
+            var text =
+                '<form method="post" class="admin-modal-form">' +
+                '<h1 id="formProductId">Product id: ' + productId + '</h1>' +
+                '<p id="errorMessage"></p>' +
+                '<label for=" productName">Name</label>' +
+                '<input type="text" name="productName" id="formProductName' + productId + '" value="' + productName + '">' +
+                '<label for="productInStock">In stock</label>' +
+                '<input type="number" name="productInStock" id="formProductInStock' + productId + '" value="' + productInStock + '">' +
+                '<label for="productPrice">Price</label>' +
+                '<input type="number" name="productPrice" id="formProductPrice' + productId + '" value="' + productPrice + '">' +
+                '<label for="productPlatform">Platform</label>' +
+                '<input type="text" name="productPlatform" id="formProductPlatform' + productId + '" value="' + productPlatform + '">' +
+                '<label for="productDetail">Detail</label>' +
+                '<textarea name="productDetail" id="formProductDetail' + productId + '" cols="30" rows="10">' + productDetail + '</textarea>' +
+                '<label for="productImgUrl">Img Url</label>' +
+                '<input type="text" name="productImgUrl" id="formProductImgUrl' + productId + '" value="' + productImgUrl + '">' +
+                '<label for="productCategory">Category</label>' +
+                '<select id="formProductCategory' + productId + '"name="formProductCategory">' + result + '</select>' +
+                '<label for="productSale">Sale</label>' +
+                '<input type="number" name="productSale" id="formProductSale' + productId + '" value="' + productSale + '">' +
+                '<button type="button" onclick="updateProduct(' + productId + ')">submit</button>' +
+                '</form>';
+            $("#updateModal").append(text);
+            $("#updateModal").show();
+        }
+    });
+}
+
+//  show add product form:
+function showAddProductForm() {
+    var productCategory = "casual";
+    $.ajax({
+        type: "get",
+        url: "loadAllCategory.php",
+        data: {
+            productCategory: ""
+        },
+        success: function (result) {
+            var text = '<form method="post" class="admin-modal-form">' +
+                '<h1>add new product</h1>' +
+                '<p id="errorMessage"></p>' +
+                '<label for=" productName">Name</label>' +
+                '<input type="text" name="productName" id="productNameInput">' +
+                '<label for="productInStock">In stock</label>' +
+                '<input type="number" name="ProductInStock" id="productInStockInput">' +
+                '<label for="productPrice">Price</label>' +
+                '<input type="number" name="productPrice" id="productPriceInput">' +
+                '<label for="productPlatform">Platform</label>' +
+                '<input type="text" name="productPlatform" id="productPlatformInput">' +
+                '<label for="productDetail">Detail</label>' +
+                '<textarea name="productDetail" id="productDetailInput" cols="30" rows="10"></textarea>' +
+                '<label for="productImgUrl">Img Url</label>' +
+                '<input type="text" name="productImgUrl" id="productImgUrlInput">' +
+                '<label for="productCategory">Category</label>' +
+                '<select id="productCategoryInput"name="formProductCategory">' + result + '</select>' +
+                '<label for="productSale">Sale</label>' +
+                '<input type="number" name="productSale" id="productSaleInput">' +
+                '<button type="button" onclick="addProduct()">submit</button>' +
+                '</form>';
+            $("#updateModal").append(text);
+            $("#updateModal").show();
+        }
+    });
+
+
 }
 // update product
 function updateProduct(productId) {
@@ -179,25 +228,30 @@ function updateProduct(productId) {
     var productCategory = $('#formProductCategory' + productId).val();
     var productDetail = $('#formProductDetail' + productId).val();
     var productImgUrl = $('#formProductImgUrl' + productId).val();
-    $.ajax({
-        type: "post",
-        url: "updateProduct.php",
-        data: {
-            productId: productId,
-            productName: productName,
-            productInStock: productInStock,
-            productPrice: productPrice,
-            productPlatform: productPlatform,
-            productSale: productSale,
-            productCategory: productCategory,
-            productDetail: productDetail,
-            productImgUrl: productImgUrl
-        },
-        success: function (response) {
-            removeUpdateModalContents();
-            loadAllProduct();
-        }
-    });
+    if ((productName == '') || (productInStock == '') || (productPrice == '') || (productPlatform == '') || (productSale == '') || (productCategory == '') || (productDetail == '') || (productImgUrl == '')) {
+        $('#errorMessage').empty();
+        $('#errorMessage').append("empty value");
+    } else {
+        $.ajax({
+            type: "post",
+            url: "updateProduct.php",
+            data: {
+                productId: productId,
+                productName: productName,
+                productInStock: productInStock,
+                productPrice: productPrice,
+                productPlatform: productPlatform,
+                productSale: productSale,
+                productCategory: productCategory,
+                productDetail: productDetail,
+                productImgUrl: productImgUrl
+            },
+            success: function (response) {
+                removeUpdateModalContents();
+                loadAllProduct();
+            }
+        });
+    }
 }
 // delete customer
 function deleteCustomer(customerId) {
@@ -279,12 +333,121 @@ function searchCustomer() {
         $('#resultTable').empty();
     }
 }
+
+// search product
+function searchProduct() {
+    var productId = $('#productId').val();
+    var productName = $('#productName').val();
+    var productInStock = $('#productInStock').val();
+    var productPrice = $('#productPrice').val();
+    var productPlatform = $('#productPlatform').val();
+    var productSale = $('#productSale').val();
+    var productCategory = $('#productCategory').val();
+    if (productId) {
+        $.ajax({
+            type: "get",
+            url: "searchProductById.php",
+            data: {
+                productId: productId
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }
+    else if(productName){
+        $.ajax({
+            type: "get",
+            url: "searchProductByName.php",
+            data: {
+                productName: productName
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }
+    else if(productSale){
+        $.ajax({
+            type: "get",
+            url: "searchProductBySale.php",
+            data: {
+                productSale: productSale
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }
+    else {
+        if(!productPrice) productPrice =0;
+        if(!productInStock) productInStock =0;
+        $.ajax({
+            type: "get",
+            url: "searchProductByOther.php",
+            data: {
+                productInStock: productInStock,
+                productPrice: productPrice,
+                productCategory: productCategory,
+                productPlatform: productPlatform
+
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }
+}
+
+//  add a product
+function addProduct() {
+    var productName = $('#productNameInput').val();
+    var productInStock = $('#productInStockInput').val();
+    var productPrice = $('#productPriceInput').val();
+    var productPlatform = $('#productPlatformInput').val();
+    var productDetail = $('#productDetailInput').val();
+    var productCategory = $('#productCategoryInput').val();
+    var productImgUrl = $('#productImgUrlInput').val();
+    var productSale = $('#productSaleInput').val();
+    if ((productName == '') || (productInStock == '') || (productPrice == '') || (productPlatform == '') || (productSale == '') || (productCategory == '') || (productDetail == '') || (productImgUrl == '')) {
+        $('#errorMessage').empty();
+        $('#errorMessage').append("empty value");
+    } else {
+        $.ajax({
+            type: "post",
+            url: "addProduct.php",
+            data: {
+                productName: productName,
+                productInStock: productInStock,
+                productPrice: productPrice,
+                productPlatform: productPlatform,
+                productSale: productSale,
+                productCategory: productCategory,
+                productDetail: productDetail,
+                productImgUrl: productImgUrl
+            },
+            success: function (response) {
+                removeUpdateModalContents();
+                loadAllProduct();
+            }
+        });
+    }
+
+}
+
 //change to customer table
 function changeToCustomersTable() {
     $('#adminPageContentsCustomer').show();
     $('#adminPageContentsProduct').hide();
     $('#resultTable').empty();
     $('#adminPageFooter').empty();
+    $('#resultTable').removeClass('result-table-product');
+    // todo: remove class result table orders
+    $('#resultTable').addClass('result-table-customer');
     var text = '<button id="ShowAllCustomerBtn" onclick="loadAllCustomers()"><i class="fa fa-list-alt fa-3x"' +
         'aria-hidden="true"></i></button>';
     $('#adminPageFooter').append(text);
@@ -292,7 +455,9 @@ function changeToCustomersTable() {
     $('#customersBtn').css({
         'color': 'white'
     });
-    // todo: add order button
+    $('#ordersBtn').css({
+        'color': '#666'
+    })
     $('#productsBtn').css({
         'color': '#666'
     });
@@ -300,8 +465,20 @@ function changeToCustomersTable() {
 }
 //change to orders table
 function changeToOrdersTable() {
-    alert("click");
-
+    $('#adminPageContentsCustomer').hide();
+    $('#adminPageContentsProduct').hide();
+    $('#resultTable').empty();
+    $('#adminPageFooter').empty();
+    $('#adminPageHeader').html("orders");
+    $('#customersBtn').css({
+        'color': '#666'
+    });
+    $('#productsBtn').css({
+        'color': '#666'
+    });
+    $('#ordersBtn').css({
+        'color': 'white'
+    })
 }
 //change to products table
 function changeToProductsTable() {
@@ -309,15 +486,20 @@ function changeToProductsTable() {
     $('#adminPageContentsProduct').show();
     $('#resultTable').empty();
     $('#adminPageFooter').empty();
+    $('#resultTable').removeClass('result-table-customer');
+    // todo: remove class result table orders
+    $('#resultTable').addClass('result-table-product');
     var text = '<button id="loadAllProductBtn" onclick="loadAllProduct()"><i class="fa fa-list-alt fa-3x"' +
         'aria-hidden="true"></i></button>' +
-        '<button id="addProductBtn" onclick="test()"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>';
+        '<button id="addProductBtn" onclick="showAddProductForm()"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>';
     $('#adminPageFooter').append(text);
     $('#adminPageHeader').html("products");
     $('#customersBtn').css({
         'color': '#666'
     });
-    // todo: add order button
+    $('#ordersBtn').css({
+        'color': '#666'
+    })
     $('#productsBtn').css({
         'color': 'white'
     });

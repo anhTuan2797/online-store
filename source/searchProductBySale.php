@@ -3,7 +3,7 @@ include_once 'database.php';
 if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) )
 {
     $myDatabase = new database();
-    $query = "SELECT * FROM school_project.product_tbl";
+    $query = "SELECT*FROM school_project.product_tbl WHERE product_sale=" .$_GET['productSale'];
     $stmt = $myDatabase->prepare($query);
     if($stmt){
         $stmt->execute();
@@ -27,5 +27,4 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
         }
         $stmt->close();
     }
-    // echo "supp";
 }

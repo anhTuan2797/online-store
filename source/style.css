@@ -767,6 +767,11 @@ top:-200px;
     grid-template-columns: 20% 20% 15% 20% 20% 5%;
 }
 
+.result-table-customer tr:hover{
+    background-color: blue;
+    font-weight: bold;
+}
+
 /* todo: add result table product */
 
 
@@ -783,7 +788,7 @@ top:-200px;
     grid-template-columns: 10% 20% 10% 10% 20% 10% 10% 10%;
  }
 
-.result-table-customer tr:hover{
+ .result-table-product tr:hover{
     background-color: blue;
     font-weight: bold;
 }
@@ -810,12 +815,18 @@ top:-200px;
     font-size: 25px;
 }
 
+.admin-modal-form p {
+    grid-column: 1/span 2;
+    color: red;
+}
+
 .admin-modal-form label {
     font-family: roboto-black;
 }
 
 .admin-modal-form input[type="text"],
-.admin-modal-form input[type="number"]
+.admin-modal-form input[type="number"],
+.admin-modal-form select
 {
     border: 2px solid #ccc;
     font-family: roboto-thin;
