@@ -196,10 +196,6 @@
     width: 50%;
 }
 
-.modal-form input[type=text] {
-    
-}
-
 .close-button i {
     position: absolute;
     right: 0;
@@ -575,7 +571,7 @@ a#loginPageButton {
     padding: 10px;
 }
 
-.admin-page-contents {
+.admin-page-contents-customer {
     margin-bottom: 0;
     background-color: white;
     width: 100%;
@@ -584,21 +580,21 @@ a#loginPageButton {
     border: none;
 }
 
-.admin-page-contents tr {
+.admin-page-contents-customer tr {
     display: grid;
     grid-template-columns: 20% 20% 15% 20% 20% 5%;
 }
 
-.admin-page-contents tr th {
+.admin-page-contents-customer tr th {
     width: 100%;
 }
 
-.admin-page-contents tr:nth-child(1),
-.admin-page-contents tr:nth-child(2) {
+.admin-page-contents-customer tr:nth-child(1),
+.admin-page-contents-customer tr:nth-child(2) {
     background-color: #666;
 }
 
-.admin-page-contents tr:hover {
+.admin-page-contents-customer tr:hover {
     background-color: #666;
 }
 
@@ -627,6 +623,31 @@ a#loginPageButton {
 
 .admin-page-contents-product tr th  input[type=text],
 .admin-page-contents-product tr th  input[type=number]
+{
+    width: 50%;
+}
+
+/* admin page content order */
+.admin-page-contents-order {
+    margin-bottom: 0;
+    background-color: #666;
+    width: 100%;
+    font-family: roboto-black;
+    text-transform: uppercase;
+}
+
+.admin-page-contents-order tr{
+    display: grid;
+    grid-template-columns: 10% 20% 20% 20% 20% 10%;
+}
+
+.admin-page-contents-order tr th {
+    display: flex;
+    justify-content: center;
+}
+
+.admin-page-contents-order tr th  input[type=text],
+.admin-page-contents-order tr th  input[type=number]
 {
     width: 50%;
 }
@@ -678,7 +699,8 @@ a#loginPageButton {
 
 /* round button */
 .round-btn-red,
-.round-btn-blue {
+.round-btn-blue,
+.round-btn-green {
 color: white;
 display:block;
 height: 40px;
@@ -686,19 +708,22 @@ width: 40px;
 border-radius: 50%;
 border: 1px solid red;
 transition: .5s ease-in;
+cursor: pointer;
 }
 
 .round-btn-red {
     background-color: red;
-    cursor: pointer;
 }
 .round-btn-blue {
     background-color: blue;
-    cursor: pointer;
+}
+.round-btn-green {
+    background-color: green;
 }
 
 .round-btn-red:hover, 
-.round-btn-blue:hover {
+.round-btn-blue:hover,
+.round-btn-green:hover {
     background-color: black;
 }
 
@@ -772,8 +797,23 @@ top:-200px;
     font-weight: bold;
 }
 
-/* todo: add result table product */
+/*result table product */
+.result-table-order {
+    margin-top: 0;
+    width: 100%;
+    background-color: white;
+    font-family: roboto-thin;
+}
 
+.result-table-order tr {
+    display: grid;
+    grid-template-columns: 10% 20% 20% 20% 20% 10%;
+}
+
+.result-table-order tr:hover {
+    background-color: blue;
+    font-weight: bold;
+}
 
 /* result table product */
 .result-table-product {
@@ -811,7 +851,6 @@ top:-200px;
 
 .admin-modal-form h1{
     grid-column: 1/span 2;
-    grid-row: 1;
     font-size: 25px;
 }
 
@@ -853,4 +892,51 @@ top:-200px;
     text-transform: uppercase;
     margin: 5px;
     cursor: pointer;
+}
+
+/* order update form */
+.order-update-form {
+    background-color: white;
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    top: 20px;
+    left: 200px;
+    margin: 20px;
+}
+
+.order-update-form form{
+    font-family: roboto-black;
+    font-size: 18px;
+    width: 100%;
+}
+
+.order-update-form form div {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 20px;
+    /* background-color: blue; */
+}
+
+.order-update-form form div input[type="number"] {
+    height: 20px;
+}
+
+.order-update-form form div button {
+    height: 20px;
+    width: 20px;
+}
+
+.order-detail{
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.order-detail-result tr{
+    display: grid;
+    grid-template-columns: 20%  20% 20% 20% 10%;
+    font-family: roboto-thin;
+    text-transform: uppercase;
 }

@@ -13,6 +13,7 @@ $(function () {
         if (e.target.className == 'modal') {
             closeModal();
             removeUpdateModalContents();
+            $('#notificationModal').remove();
         }
     });
     // close modal when esc is press
@@ -20,6 +21,7 @@ $(function () {
         if (event.key == 'Escape') {
             closeModal();
             removeUpdateModalContents();
+            $('#notificationModal').remove();
         }
     })
     //change to sign up page when sign up button is press
@@ -119,31 +121,44 @@ function toggleSidebarButton() {
 
 // load all customer function
 function loadAllCustomers() {
-    $('#resultTable').removeClass('result-table-product');
-    // todo: remove class result table orders
-    $('#resultTable').addClass('result-table-customer');
     $("#resultTable").load("loadAllCustomer.php");
 }
 // load all product function
 function loadAllProduct() {
-    // alert("product click");
-    $('#resultTable').removeClass('result-table-customer');
-    // todo: remove class result table orders
-    $('#resultTable').addClass('result-table-product');
     $('#resultTable').load("loadAllProduct.php");
 }
+
+// load all orders function
+function loadAllOrder() {
+    $('#resultTable').load("loadAllOrder.php");
+}
+
 // show delete customer notification:
 function showDeleteCustomerNotification(customerId) {
-    var text = '<div class="modal" style="display: block;">' +
+    var text = '<div class="modal" style="display: block;" id="notificationModal">' +
         '<div class="notification">' +
+        '<p style="color: red;">Customer Id: ' + customerId + '</p>' +
         '<p>Are you sure you want to delete this customer?</p>' +
         ' <button id = "deleteConfirm" onclick="deleteCustomer(' + customerId + ')">yes</button>' +
         '</div>' +
         '</div>';
     $('.admin-page').append(text);
 }
-// show edit product form:
-function showEditProductForm(
+
+// show cancel order notification
+function showCancelOrderNotification(orderId) {
+    var text = '<div class="modal" style="display: block;" id="notificationModal">' +
+        '<div class="notification">' +
+        '<p style="color: red;">Order Id: ' + orderId + '</p>' +
+        '<p>Are you sure you want to cancel this order?</p>' +
+        ' <button id = "deleteConfirm" onclick="cancelOrder(' + orderId + ')">yes</button>' +
+        '</div>' +
+        '</div>';
+    $('.admin-page').append(text);
+}
+
+// show update product form:
+function showUpdateProductForm(
     productId, productName, productInStock, productPrice, productPlatform, productSale, productCategory, productDetail, productImgUrl) {
     $.ajax({
         type: "get",
@@ -154,7 +169,7 @@ function showEditProductForm(
         success: function (result) {
             var text =
                 '<form method="post" class="admin-modal-form">' +
-                '<h1 id="formProductId">Product id: ' + productId + '</h1>' +
+                '<h1 id="formProductId">Product id: ' + '<span style="color: red">' + productId + '</span>' + '</h1>' +
                 '<p id="errorMessage"></p>' +
                 '<label for=" productName">Name</label>' +
                 '<input type="text" name="productName" id="formProductName' + productId + '" value="' + productName + '">' +
@@ -180,9 +195,60 @@ function showEditProductForm(
     });
 }
 
+// show update order form
+function showUpdateOrderForm(orderId, customerId, orderDate) {
+    $.ajax({
+        type: "get",
+        url: "loadOrderDetail.php",
+        data: {
+            orderId: orderId,
+            orderStatus: "processing"
+        },
+        success: function (result) {
+            var text = '<div class="order-update-form">' +
+                '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
+                '<p id="errorMessage"></p>' +
+                '<form id="orderDetailBox" style="border: 1px solid black">' +
+                '<label for="detailProductId">Product Id: </label>' +
+                '<input type="number" name="orderFormProductId" id="orderFormProductId">' +
+                '<button type="button" onclick="orderUpdateSearchProduct()"><i class="fa fa-search"aria-hidden="true"></i></button>' +
+                '<div id="orderFormProductResult"></div>' +
+                '</form>' +
+                '<div class="order-detail" id="orderDetailResult">' +
+                result+
+                '</div>' +
+                '</div>';
+            $("#updateModal").append(text);
+            $("#updateModal").show();
+        }
+    });
+}
+
+// show order detail
+function showOrderDetail(orderId, customerId, orderDate, orderSum) {
+    $.ajax({
+        type: "get",
+        url: "loadOrderDetail.php",
+        data: {
+            orderId: orderId,
+            orderStatus: ""
+        },
+        success: function (result) {
+            var text = '<div class="order-update-form">' +
+                '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
+                '<p id="errorMessage"></p>' +
+                '<div class="order-detail">' +
+                result+
+                '</div>' +
+                '</div>';
+            $("#updateModal").append(text);
+            $("#updateModal").show();
+        }
+    });
+}
+
 //  show add product form:
 function showAddProductForm() {
-    var productCategory = "casual";
     $.ajax({
         type: "get",
         url: "loadAllCategory.php",
@@ -215,9 +281,8 @@ function showAddProductForm() {
             $("#updateModal").show();
         }
     });
-
-
 }
+
 // update product
 function updateProduct(productId) {
     var productName = $('#formProductName' + productId).val();
@@ -263,8 +328,88 @@ function deleteCustomer(customerId) {
         },
         success: function (response) {
             console.log("success");
-            closeModal();
+            $('#notificationModal').remove();
             $("#resultTable").load("loadAllCustomer.php");
+        }
+    });
+}
+
+// delete product from order
+function deleteProductFromOrder(productId, rowCount) {
+    var orderId = $('#formOrderId').text();
+    if (rowCount == 1) {
+        showCancelOrderNotification(orderId);
+    } else {
+        $.ajax({
+            type: "get",
+            url: "loadOrderDetailSum.php",
+            data: {
+                productId: productId,
+                orderId: orderId
+            },
+            success: function (result) {
+                var orderNewSum = parseInt(result);
+                console.log(orderNewSum);
+                $.ajax({
+                    type: "get",
+                    url: "loadOrderSum.php",
+                    data: {
+                        orderId: orderId
+                    },
+                    success: function (result) {
+                        orderNewSum = parseInt(result) - orderNewSum;
+                        $.ajax({
+                            type: "post",
+                            url: "updateOrderSum.php",
+                            data: {
+                                orderId: orderId,
+                                orderNewSum: orderNewSum
+                            },
+                            success: function (result) {
+                                $.ajax({
+                                    type: "post",
+                                    url: "deleteProductFromOrder.php",
+                                    data: {
+                                        orderId: orderId,
+                                        productId: productId
+                                    },
+                                    success: function (response) {
+                                        $.ajax({
+                                            type: "get",
+                                            url: "loadOrderDetail.php",
+                                            data: {
+                                                orderId: orderId,
+                                                orderStatus: "processing"
+                                            },
+                                            success: function (result) {
+                                                $('#orderDetailResult').empty();
+                                                $('#orderDetailResult').append(result);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+}
+
+//  cancel order function
+function cancelOrder(orderId) {
+    $.ajax({
+        type: "post",
+        url: "cancelOrder.php",
+        data: {
+            orderId: orderId
+        },
+        success: function (response) {
+            $('#notificationModal').remove();
+            removeUpdateModalContents();
+            $("#resultTable").load("loadAllOrder.php");
         }
     });
 }
@@ -355,8 +500,7 @@ function searchProduct() {
                 $('#resultTable').append(result);
             }
         });
-    }
-    else if(productName){
+    } else if (productName) {
         $.ajax({
             type: "get",
             url: "searchProductByName.php",
@@ -368,8 +512,7 @@ function searchProduct() {
                 $('#resultTable').append(result);
             }
         });
-    }
-    else if(productSale){
+    } else if (productSale) {
         $.ajax({
             type: "get",
             url: "searchProductBySale.php",
@@ -381,10 +524,9 @@ function searchProduct() {
                 $('#resultTable').append(result);
             }
         });
-    }
-    else {
-        if(!productPrice) productPrice =0;
-        if(!productInStock) productInStock =0;
+    } else {
+        if (!productPrice) productPrice = 0;
+        if (!productInStock) productInStock = 0;
         $.ajax({
             type: "get",
             url: "searchProductByOther.php",
@@ -403,7 +545,22 @@ function searchProduct() {
     }
 }
 
-//  add a product
+// search product for order update form
+function orderUpdateSearchProduct() {
+    var productId = $('#orderFormProductId').val();
+    $.ajax({
+        type: "get",
+        url: "orderUpdateSearchProduct.php",
+        data: {
+            productId: productId
+        },
+        success: function (result) {
+            $('#orderFormProductResult').empty();
+            $('#orderFormProductResult').append(result);
+        }
+    });
+}
+//  add a product to database
 function addProduct() {
     var productName = $('#productNameInput').val();
     var productInStock = $('#productInStockInput').val();
@@ -439,15 +596,22 @@ function addProduct() {
 
 }
 
+// add a product the order
+function addProductToOrder(productId, productPrice) {
+    alert(productId);
+    alert(productPrice);
+}
+
 //change to customer table
 function changeToCustomersTable() {
     $('#adminPageContentsCustomer').show();
     $('#adminPageContentsProduct').hide();
+    $('#adminPageContentsOrder').hide();
     $('#resultTable').empty();
-    $('#adminPageFooter').empty();
     $('#resultTable').removeClass('result-table-product');
-    // todo: remove class result table orders
+    $('#resultTable').removeClass('result-table-order');
     $('#resultTable').addClass('result-table-customer');
+    $('#adminPageFooter').empty();
     var text = '<button id="ShowAllCustomerBtn" onclick="loadAllCustomers()"><i class="fa fa-list-alt fa-3x"' +
         'aria-hidden="true"></i></button>';
     $('#adminPageFooter').append(text);
@@ -467,8 +631,15 @@ function changeToCustomersTable() {
 function changeToOrdersTable() {
     $('#adminPageContentsCustomer').hide();
     $('#adminPageContentsProduct').hide();
+    $('#adminPageContentsOrder').show();
     $('#resultTable').empty();
+    $('#resultTable').removeClass('result-table-product');
+    $('#resultTable').removeClass('result-table-customer');
+    $('#resultTable').addClass('result-table-order');
     $('#adminPageFooter').empty();
+    var text = '<button id="loadAllOrdersBtn" onclick="loadAllOrder()"><i class="fa fa-list-alt fa-3x"' +
+        'aria-hidden="true"></i></button>';
+    $('#adminPageFooter').append(text);
     $('#adminPageHeader').html("orders");
     $('#customersBtn').css({
         'color': '#666'
@@ -483,12 +654,13 @@ function changeToOrdersTable() {
 //change to products table
 function changeToProductsTable() {
     $('#adminPageContentsCustomer').hide();
+    $('#adminPageContentsOrder').hide();
     $('#adminPageContentsProduct').show();
     $('#resultTable').empty();
-    $('#adminPageFooter').empty();
     $('#resultTable').removeClass('result-table-customer');
-    // todo: remove class result table orders
+    $('#resultTable').removeClass('result-table-order');
     $('#resultTable').addClass('result-table-product');
+    $('#adminPageFooter').empty();
     var text = '<button id="loadAllProductBtn" onclick="loadAllProduct()"><i class="fa fa-list-alt fa-3x"' +
         'aria-hidden="true"></i></button>' +
         '<button id="addProductBtn" onclick="showAddProductForm()"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>';

@@ -18,7 +18,7 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
             echo"<th>".$saleField."</th>";
             echo"<th>".$categoryField."</th>";
             echo"<th>
-            <button class = \"round-btn-blue\" i onclick=\"showEditProductForm("
+            <button class = \"round-btn-blue\" i onclick=\"showUpdateProductForm("
             .$idField.","."'".$nameField."'".",".$inStockField.",".$priceField.","."'".$platformField."'".",".$saleField.
             ","."'".$categoryField."'".","."'".$detailField."'".","."'".$imgField."'".")\">
             <i class=\"fas fa-pencil-alt\"></i></button>

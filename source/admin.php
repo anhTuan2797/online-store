@@ -44,7 +44,7 @@
             customers
         </div>
         <div class="table-contents" id="tableContents">
-            <table class="admin-page-contents" id="adminPageContentsCustomer">
+            <table class="admin-page-contents-customer" id="adminPageContentsCustomer">
                 <tr>
                     <th>id</th>
                     <th>name</th>
@@ -64,7 +64,7 @@
                                 aria-hidden="true"></i></button></th>
                 </tr>
             </table>
-            <table class="admin-page-contents-order" >
+            <table class="admin-page-contents-order" id="adminPageContentsOrder" style="display: none;">
                 <tr>
                     <th>id</th>
                     <th>customer id</th>
@@ -74,7 +74,7 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <form method="get"" id=" customerSearchForm"></form>
+                    <form method="get"" id=" orderSearchForm"></form>
                     <th><input type="number" name="order_id" id="orderId"></th>
                     <th><input type="number" name="customer_id" id="customerId"></th>
                     <th><input type="number" name="order_sum" id="orderSum"></th>
@@ -110,15 +110,12 @@
             </table>
             <table class="result-table-customer" id="resultTable">
             </table>
-
         </div>
         <div class="modal" id="updateModal">
-            
         </div>
         <div class="admin-page-footer" id="adminPageFooter">
             <button id="ShowAllCustomerBtn" onclick="loadAllCustomers()"><i class="fa fa-list-alt fa-3x"
                     aria-hidden="true"></i></button>
-                    
         </div>
         
     </div>
