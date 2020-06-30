@@ -30,8 +30,12 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
             echo"<th>".$amountField."</th>";
             echo"<th>".$sumField."</th>";
             if(!strcmp($status,"processing")){
-            echo"<th><button class = \"round-btn-red\" i onclick=\"deleteProductFromOrder(".$idField.",".$rowCount.")\">
-            <i class=\"fas fa-trash-alt\"></i></button></th>";
+            echo"<th>
+            <button class = \"round-btn-red\" i onclick=\"deleteProductFromOrder(".$idField.",".$rowCount.")\">
+            <i class=\"fas fa-trash-alt\"></i></button>
+            <button class = \"round-btn-blue\" i onclick=\" removeOneProduct(".$idField.",".$_GET['orderId'].",".$amountField.",".$sumField.")\">
+            <i class=\"fa fa-minus\" aria-hidden=\"true\"></i></button>
+            </th>";
             }
             else{
                 echo"<th></th>";

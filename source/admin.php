@@ -70,6 +70,7 @@
                     <th>customer id</th>
                     <th>sum</th>
                     <th>date</th>
+                    <th>address</th>
                     <th>status</th>
                     <th></th>
                 </tr>
@@ -80,7 +81,7 @@
                     <th><input type="number" name="order_sum" id="orderSum"></th>
                     <th><input type="date" name="order_date" id="orderDate"></th>
                     <th><input type="text" name="order_status" id="orderStatus"></th>
-                    <th><button onclick="test()"><i class="fa fa-search fa-2x"
+                    <th><button onclick="searchOrder()"><i class="fa fa-search fa-2x"
                                 aria-hidden="true"></i></button></th>
                 </tr>
             </table>

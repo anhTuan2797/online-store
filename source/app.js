@@ -196,7 +196,7 @@ function showUpdateProductForm(
 }
 
 // show update order form
-function showUpdateOrderForm(orderId, customerId, orderDate) {
+function showUpdateOrderForm(orderId, customerId, orderDate,orderAddress) {
     $.ajax({
         type: "get",
         url: "loadOrderDetail.php",
@@ -207,6 +207,9 @@ function showUpdateOrderForm(orderId, customerId, orderDate) {
         success: function (result) {
             var text = '<div class="order-update-form">' +
                 '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
+                '<label for="detailProductId">Address </label>' +
+                '<input type="text" name="orderFormAddress" id="orderFormAddress" value="'+orderAddress+'">' +
+                '<button onclick="updateOrderAddress('+orderId+')">test</button>'+
                 '<p id="errorMessage"></p>' +
                 '<form id="orderDetailBox" style="border: 1px solid black">' +
                 '<label for="detailProductId">Product Id: </label>' +
@@ -225,7 +228,7 @@ function showUpdateOrderForm(orderId, customerId, orderDate) {
 }
 
 // show order detail
-function showOrderDetail(orderId, customerId, orderDate, orderSum) {
+function showOrderDetail(orderId, customerId, orderDate, orderAddress) {
     $.ajax({
         type: "get",
         url: "loadOrderDetail.php",
@@ -318,6 +321,22 @@ function updateProduct(productId) {
         });
     }
 }
+// update order address
+function updateOrderAddress(orderId){
+    var orderNewAddress = $('#orderFormAddress').val();
+    $.ajax({
+        type: "post",
+        url: "updateOrderAddress.php",
+        data: {
+            orderId: orderId,
+            orderNewAddress: orderNewAddress
+        },
+        success: function (response) {
+            loadAllOrder();
+        }
+    });
+}
+
 // delete customer
 function deleteCustomer(customerId) {
     $.ajax({
@@ -349,7 +368,6 @@ function deleteProductFromOrder(productId, rowCount) {
             },
             success: function (result) {
                 var orderNewSum = parseInt(result);
-                console.log(orderNewSum);
                 $.ajax({
                     type: "get",
                     url: "loadOrderSum.php",
@@ -384,6 +402,7 @@ function deleteProductFromOrder(productId, rowCount) {
                                             success: function (result) {
                                                 $('#orderDetailResult').empty();
                                                 $('#orderDetailResult').append(result);
+                                                loadAllOrder();
                                             }
                                         });
                                     }
@@ -596,10 +615,115 @@ function addProduct() {
 
 }
 
-// add a product the order
+// search order
+function searchOrder(){
+    var orderId = $('#orderId').val();
+    var customerId = $('#customerId').val();
+    var orderSum = $('#orderSum').val();
+    var orderDate= $('#orderDate').val();
+    var orderStatus = $('#orderStatus').val();
+    if(orderId){
+        $.ajax({
+            type: "get",
+            url: "loadOrderById.php",
+            data: {
+                orderId: orderId
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    } else{
+        if(!customerId) customerId=0;
+        if(!orderSum) orderSum =0;
+        $.ajax({
+            type: "get",
+            url: "loadOrderByOther.php",
+            data: {
+                customerId: customerId,
+                orderSum: orderSum,
+                orderDate: orderDate,
+                orderStatus: orderStatus
+            },
+            success: function (result) {
+                $('#resultTable').empty();
+                $('#resultTable').append(result);
+            }
+        });
+    }
+}
+
+// add a product to order
 function addProductToOrder(productId, productPrice) {
-    alert(productId);
-    alert(productPrice);
+    var orderId = $('#formOrderId').text();
+    var productAmount = $('#formProductAmount').val();
+    $.ajax({
+        type: "post",
+        url: "addProductToOrder.php",
+        data: {
+            orderId: orderId,
+            productId : productId,
+            productAmount: productAmount,
+            productPrice: productPrice
+        },
+        success: function (response) {
+            $.ajax({
+                type: "post",
+                url: "addOrderSum.php",
+                data: {
+                    orderId:orderId,
+                    orderNewSum: productPrice*productAmount
+                },
+                success: function (response) {
+                    $.ajax({
+                        type: "get",
+                        url: "loadOrderDetail.php",
+                        data: {
+                            orderId: orderId,
+                            orderStatus: "processing"
+                        },
+                        success: function (result) {
+                            $('#orderDetailResult').empty();
+                            $('#orderDetailResult').append(result);
+                            loadAllOrder();
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+// remove a product from order
+function removeOneProduct(productId,orderId,productAmount,productSum){
+    if(productAmount>1){
+    var oneProductPrice = productSum/productAmount;
+    $.ajax({
+        type: "post",
+        url: "removeOneProduct.php",
+        data: {
+            productId: productId,
+            orderId: orderId,
+            productPrice: oneProductPrice
+        },
+        success: function (response) {
+            $.ajax({
+                type: "get",
+                url: "loadOrderDetail.php",
+                data: {
+                    orderId: orderId,
+                    orderStatus: "processing"
+                },
+                success: function (result) {
+                    $('#orderDetailResult').empty();
+                    $('#orderDetailResult').append(result);
+                    loadAllOrder();
+                }
+            });
+        }
+    });
+}
 }
 
 //change to customer table

@@ -28,8 +28,45 @@ class database {
     }
 }
 
+function removeProductInStock($productId,$productAmount){
+    $myDatabase = new database();
+    $query = "UPDATE school_project.product_tbl
+                SET product_inStock=product_inStock-".$productAmount."
+                WHERE product_id=".$productId ;
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}
 
+function addProductFromCancelOrder($orderId){
+    $myDatabase = new database();
+    $query = "SELECT product_id,orderDetail_amount 
+    From school_project.orderDetail_tbl 
+    WHERE order_id=".$orderId;
+     $stmt = $myDatabase->prepare($query);
+     if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($idField,$amountField);
+        while($stmt->fetch()){
+            removeProductInStock($idField,-$amountField);
+        }
+        $stmt->close();
+     }
+}
 
+function addOrderSum($orderId,$OrderSum){
+    $myDatabase = new database();
+    $query = "UPDATE school_project.order_tbl 
+    SET order_sum=order_sum+".$OrderSum."        
+    WHERE order_id=".$orderId;
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}
 
 
 
