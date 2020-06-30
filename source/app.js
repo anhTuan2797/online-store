@@ -1,9 +1,9 @@
 //!global variables:
 // slide variables:
-var myShoesSlidesIndex = 0;
+var myRpgSlidesIndex = 0;
 var myTShirtSlidesIndex = 0;
-var myJeanSlidesIndex = 0;
-var mySnapbackSlidesIndex = 0;
+var myActionSlidesIndex = 0;
+var myCasualSlidesIndex = 0;
 
 // !main function
 $(function () {
@@ -29,10 +29,10 @@ $(function () {
     $("#loginPageButton").click(changeToLoginPage);
 
     //!main contents functions
-    slideShow("shoes-slide", myShoesSlidesIndex);
-    slideShow("t-shirt-slide", myTShirtSlidesIndex);
-    slideShow("jean-slide", myJeanSlidesIndex);
-    slideShow("snapback-slide", mySnapbackSlidesIndex);
+    slideShow("rpg-slide", myRpgSlidesIndex);
+    slideShow("shooter-slide", myTShirtSlidesIndex);
+    slideShow("action-slide", myActionSlidesIndex);
+    slideShow("casual-slide", myCasualSlidesIndex);
 
     //!admin page function
 });
