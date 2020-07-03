@@ -3,7 +3,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +12,8 @@
     <script src="app.js"></script>
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.css">
 </head>
+</head>
+
 <script>
     $(function () {
         $('#mainFooter').load('footer.html');
@@ -145,9 +146,8 @@
                         </div>
                         
                     </div>
-</nav>
-    <main class="main-content">
-        <nav class="sub-nav-bar">
+    </nav>
+<nav class="sub-nav-bar">
             <ul>
                 <li>
                     <div class="dropdown">
@@ -169,61 +169,81 @@
                         </div>
                     </div>
                 </li>
-                <li>
-                    <button type="button" onclick="sortByAscPrice()"><i class="fas fa-angle-down"></i> Ascent Price</button>
-                    <button type="button" onclick="sortByDescPrice()"><i class="fas fa-angle-up"></i> Descent Price</button>
-                </li>
             </ul>
         </nav>
-        <section style="display: flex; justify-content: center ">
-        <div id="indexPageContents" class="index-page-contents">
-        <?php
+<main class="product-page-content">
+    <?php
         include_once 'database.php';
-               $myDatabase = new database();
-               $query = "SELECT product_id,product_name, product_price,product_sale,product_imgUrl FROM school_project.product_tbl 
-               WHERE product_inStock>0 AND (product_platform="."\"".$_GET['platform']."\""."or category_id="."\"".$_GET['category']."\"".")
-               ORDER BY ".$_GET['orderBy'];
-               $stmt = $myDatabase->prepare($query);
-               if($stmt){
-                   $stmt->execute();
-                   $stmt->bind_result($idField,$nameField,$priceField,$saleField,$imgField);
-                   while($stmt->fetch()){
-                        echo"<div class='item-container'>";
-                        echo "<a href='product.php?id=".$idField."'><img src='".$imgField."' alt='test'></a>";
-                        echo"<div>";
-                        echo"<p>".$nameField."</p>";
-                        if($saleField==0){
-                        echo"<p>".$priceField."đ"."</p>";
-                        }
-                        else{
-                        echo"<p><span style='text-decoration: line-through;'>".$priceField."đ"."</span>"." "."<span style='color: red;'>".$priceField*(1-$saleField*0.01)."đ"."</span>"."</p>";
-                        }
-                        echo"<div><button type='button' onclick='test()'><i class='fas fa-shopping-cart'></i></button></div>";
-                        echo"<div><button type='button' onclick='test()'>buy now</button></div>";
-                        echo"</div>";
-                        echo"</div>";
-                   }
-               }
-        ?>
-        </section>
-    </main>
-    <div id="mainFooter"></div>
+        $myDatabase = new database();
+        $query = "SELECT product_id,product_name,product_inStock,product_price,product_detail,product_imgUrl,product_sale,product_platform,category_id FROM school_project.product_tbl where product_id =".$_GET['id'];
+        $stmt = $myDatabase->prepare($query);
+        if($stmt){
+            $stmt->execute();
+            $stmt->bind_result($idField,$nameField,$inStockField,$priceField,$detailField,$imgField,$saleField,$platformField,$categoryField);
+            $stmt->fetch();
+                echo "<h1>".$nameField."</h1>";
+                echo "<div class=\"product-page-img\">";
+                echo "<img src=\"".$imgField."\">";
+                echo "</div>";
+                echo "<div class=\"product-page-information\">";
+                echo "<p><i class=\"fas fa-tags\"></i>product id: <span style=\"color: black;\">".$idField."</span></p>";
+                if($inStockField>0){
+                echo "<p><i class=\"fas fa-question-circle\"></i>status: <span style=\"color: red;\">available</span></p>";
+                }
+                else{
+                    echo "<p><i class=\"fas fa-question-circle\"></i>status: <span style=\"color: #996666;\">out of stock</span></p>";
+                }
+                echo "<p><i class=\"fas fa-gamepad\"></i>platform: <span style=\"color: red;\">".$platformField."</span></p>";
+                echo "</div>";
+                echo "<div class=\"product-page-price\">";
+                if($saleField==0){
+                echo "<p>price: <br>".($priceField/1000).".000đ</p>";
+                }
+                else {
+                    echo "<p>price: <span style=\"text-decoration: line-through; color: #996666\">".$priceField."</span></p>";
+                    echo "<p><span style=\"font-size: 20px;\">".$priceField*(1-$saleField*0.01)."đ </span><span style=\"border-radius: 12px; background-color: red; color: white\">-".$saleField."%</span></p>";
+                }
+                echo "</div>";
+                echo "<div class=\"product-page-buttons\">";
+                if($inStockField>0){
+                    echo"<input type=\"number\" id=\"productPageProductAmount\" min=\"1\" max="."\"".$inStockField."\""." value=\"1\">";
+                    echo"<button style =\"button\" onclick=\"test()\">buy now</button>";
+                    echo "<button style =\"button\" onclick=\"test()\">add to cart</button>";
+                }
+                echo "</div>";
+                echo "</main>";
+                echo "<div class=\"product-page-detail\">";
+                echo "<h1>Product Detail</h1>";
+                echo "<p>".$detailField."</p>";
+                echo "</div>";
+                echo "<div class=\"product-page-like\">";
+                $stmt->close();
+                echo "<h1>Same Category</h1>";
+                echo "<div class=\"product-page-like-contents\">";
+                $query = "SELECT product_id,product_name, product_price,product_sale,product_imgUrl FROM school_project.product_tbl 
+                WHERE product_inStock>0 AND category_id="."\"".$categoryField."\" AND product_id !=".$idField." limit 3";
+                $stmt = $myDatabase->prepare($query);
+                if($stmt){
+                    $stmt->execute();
+                    $stmt->bind_result($idField,$nameField,$priceField,$saleField,$imgField);
+                    while($stmt->fetch()){
+                        echo"<div class=\"small-item-container\">";
+                        echo"<a href=\"product.php?id=".$idField."\"><img src=\"".$imgField."\"></a>";
+                        echo "<div>";
+                        echo "<p>".$nameField."</p>";
+                        echo "<p>".$priceField."</p>";
+                        echo "</div>";
+                        echo "<div>";
+                        echo "<button type = \"button\" onclick =\"test()\"><i class='fas fa-shopping-cart'></i></button>";
+                        echo "<button type = \"button\" onclick =\"test()\">buy now</button>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                }
+                echo "</div>";
+                echo "</div>";
+        }
+    ?>
+<div id="mainFooter"></div>
 </body>
-<script>
-    function sortByAscPrice(){
-        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
-        console.log(url);
-        var res = url.split("&");
-        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01)";
-        console.log(url);
-        window.location = url;
-    }
-
-    function sortByDescPrice(){
-        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
-        var res = url.split("&");
-        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01) desc";
-        window.location = url;
-    }
-</script>
 </html>

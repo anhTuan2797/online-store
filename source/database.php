@@ -68,6 +68,70 @@ function addOrderSum($orderId,$OrderSum){
     }
 }
 
+function checkCustomerEmail($customerEmail){
+    $myDatabase = new database();
+    $query = "SELECT customer_email from school_project.customer_tbl";
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($emailField);
+        while($stmt->fetch()){
+            if(!strcmp($customerEmail,$emailField)) return true;
+        }
+        $stmt->close();
+        return false;
+    }
+}
 
+function checkCustomerTel($customerTel){
+    $myDatabase = new database();
+    $query = "SELECT customer_tel from school_project.customer_tbl";
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($TelField);
+        while($stmt->fetch()){
+            if(!strcmp($customerTel,$TelField)) return true;
+        }
+        $stmt->close();
+        return false;
+    }
+}
+
+function checkEmailAndPassword($email,$password){
+    $myDatabase = new database();
+    $query = "SELECT customer_id,customer_password FROM school_project.customer_tbl WHERE customer_email="."\"".$email."\"";
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($idField,$passwordField);
+        $stmt->fetch();
+        if(password_verify($password,$passwordField)){
+            return $idField;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
+function loadOrderDetail($orderId){
+    $myDatabase = new database();
+    $query = "select product_name, orderDetail_amount from orderDetail_tbl inner join product_tbl on orderDetail_tbl.product_id = product_tbl.product_id where order_id =".$orderId;
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($nameField,$amountField);
+        $result = array();
+        $count = 0;
+        while($stmt->fetch()){
+            $result[$count] = $nameField;
+            $result[$count+1] = $amountField;
+            $count += 2;
+        }
+        
+        return $result;
+    }
+}
 
 

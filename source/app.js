@@ -1,7 +1,7 @@
 //!global variables:
 // slide variables:
 var myRpgSlidesIndex = 0;
-var myTShirtSlidesIndex = 0;
+var myAdventureSlidesIndex = 0;
 var myActionSlidesIndex = 0;
 var myCasualSlidesIndex = 0;
 
@@ -30,7 +30,7 @@ $(function () {
 
     //!main contents functions
     slideShow("rpg-slide", myRpgSlidesIndex);
-    slideShow("shooter-slide", myTShirtSlidesIndex);
+    slideShow("adventure-slide", myAdventureSlidesIndex);
     slideShow("action-slide", myActionSlidesIndex);
     slideShow("casual-slide", myCasualSlidesIndex);
 
@@ -209,7 +209,7 @@ function showUpdateOrderForm(orderId, customerId, orderDate,orderAddress) {
                 '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
                 '<label for="detailProductId">Address </label>' +
                 '<input type="text" name="orderFormAddress" id="orderFormAddress" value="'+orderAddress+'">' +
-                '<button onclick="updateOrderAddress('+orderId+')">test</button>'+
+                '<button onclick="updateOrderAddress('+orderId+')">change</button>'+
                 '<p id="errorMessage"></p>' +
                 '<form id="orderDetailBox" style="border: 1px solid black">' +
                 '<label for="detailProductId">Product Id: </label>' +
@@ -799,6 +799,86 @@ function changeToProductsTable() {
     $('#productsBtn').css({
         'color': 'white'
     });
+}
+
+// sign up function
+function signUp(){
+    $('#signUpErrorMessage').empty();
+    var customerName=$('#signUpNameInput').val();
+    var customerSex=$('#signUpGenderInput:checked').val();
+    var customerEmail=$('#signUpEmailInput').val();
+    var customerTel = $('#signUpTelInput').val();
+    var customerPassword = $('#signUpPasswordInput').val();
+    var customerRePassword = $('#signUpRePasswordInput').val();
+    if(!customerName){
+        $('#signUpErrorMessage').append("please enter your name");
+    }
+    else if(!customerSex){
+        $('#signUpErrorMessage').append("please choose your gender");
+    }
+    else if(!customerEmail){
+        $('#signUpErrorMessage').append("please enter your email");
+    }
+    else if(!customerTel){
+        $('#signUpErrorMessage').append("please enter your telephone number");
+    }
+    else if(!customerPassword){
+        $('#signUpErrorMessage').append("please enter your password");
+    }
+    else if(!customerRePassword){
+        $('#signUpErrorMessage').append("please confirm your password");
+    }
+    else if(customerRePassword!=customerPassword){
+        $('#signUpErrorMessage').append("your passwords is not match");
+    }
+    else{
+        $.ajax({
+            type: "post",
+            url: "addNewCustomer.php",
+            data: {
+                customerName: customerName,
+                customerEmail: customerEmail,
+                customerSex: customerSex,
+                customerTel: customerTel,
+                customerPassword: customerPassword
+            },
+            success: function (result) {
+                $('#signUpErrorMessage').append(result);
+            }
+        });
+    }
+}
+
+// login function
+function login(){
+    $('#loginErrorMessage').empty();
+    var customerEmail = $('#loginAccountInput').val();
+    var customerPassword = $('#loginPasswordInput').val();
+    if(!customerEmail){
+        $('#loginErrorMessage').append("please enter your email");
+    }
+    else if(!customerPassword){
+        $('#loginErrorMessage').append("please enter your password");
+    }
+    else{
+    $.ajax({
+        type: "post",
+        url: "login.php",
+        data: {
+            customerEmail: customerEmail,
+            customerPassword: customerPassword
+        },
+        success: function (result) {
+            if(result=="wrong email or password"){
+            $('#loginErrorMessage').append(result);
+            }
+            else{
+                var url = result;
+                window.location = url;
+            }
+        }
+    });
+}
 }
 
 function test() {
