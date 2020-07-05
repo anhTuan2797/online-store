@@ -18,6 +18,82 @@
     $(function () {
         $('#mainFooter').load('footer.html');
     })
+    function addToShoppingCart(productId){
+        var customerId = "<?php if(isset($_SESSION['userId'])){
+            echo($_SESSION['userId']);
+        }
+        else{
+            echo"";
+        } ?>";
+        if(customerId){
+            $.ajax({
+                type: "post",
+                url: "addProductToShoppingCart.php",
+                data: {
+                    customerId: customerId,
+                    productId: productId,
+                    productAmount: 1
+                },
+                success: function (response) {
+                    
+                }
+            });
+        }
+        else{
+            openLoginModal();
+        }
+    }
+    function addManyProductToCart(productId){
+        var customerId = "<?php if(isset($_SESSION['userId'])){
+            echo($_SESSION['userId']);
+        }
+        else{
+            echo"";
+        } ?>";
+        if(customerId){
+            var amount = $('#productPageProductAmount').val();
+            $.ajax({
+                type: "post",
+                url: "addProductToShoppingCart.php",
+                data: {
+                    customerId: customerId,
+                    productId: productId,
+                    productAmount: amount
+                },
+                success: function (response) {
+                    
+                }
+            });
+        }
+        else{
+            openLoginModal();
+        }
+    }
+    function buyNow(productId){
+        var customerId = "<?php if(isset($_SESSION['userId'])){
+            echo($_SESSION['userId']);
+        }
+        else{
+            echo"";
+        } ?>";
+        if(customerId){
+            $.ajax({
+                type: "post",
+                url: "addProductToShoppingCart.php",
+                data: {
+                    customerId: customerId,
+                    productId: productId,
+                    productAmount: 1
+                },
+                success: function (response) {
+                    window.location = 'cart.php';
+                }
+            });
+        }
+        else{
+            openLoginModal();
+        }
+    }
 </script>
 
 <body>
@@ -55,7 +131,14 @@
                 </div>
             </li>
             <li>
-                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            <?php
+                if(!isset($_SESSION['userId'])){
+                echo '<a href="#"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                else {
+                    echo '<a href="cart.php"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                ?>
             </li>
         </ul>
         <div class="modal" id="modal">
@@ -207,8 +290,8 @@
                 echo "<div class=\"product-page-buttons\">";
                 if($inStockField>0){
                     echo"<input type=\"number\" id=\"productPageProductAmount\" min=\"1\" max="."\"".$inStockField."\""." value=\"1\">";
-                    echo"<button style =\"button\" onclick=\"test()\">buy now</button>";
-                    echo "<button style =\"button\" onclick=\"test()\">add to cart</button>";
+                    echo"<button style =\"button\" onclick=\"buyNow(".$idField.")\">buy now</button>";
+                    echo "<button style =\"button\" onclick=\"addManyProductToCart(".$idField.")\">add to cart</button>";
                 }
                 echo "</div>";
                 echo "</main>";
@@ -234,8 +317,8 @@
                         echo "<p>".$priceField."</p>";
                         echo "</div>";
                         echo "<div>";
-                        echo "<button type = \"button\" onclick =\"test()\"><i class='fas fa-shopping-cart'></i></button>";
-                        echo "<button type = \"button\" onclick =\"test()\">buy now</button>";
+                        echo "<button type = \"button\" onclick =\"addToShoppingCart(".$idField.")\"><i class='fas fa-shopping-cart'></i></button>";
+                        echo "<button type = \"button\" onclick =\"buyNow(".$idField.")\">buy now</button>";
                         echo "</div>";
                         echo "</div>";
                     }

@@ -129,9 +129,120 @@ function loadOrderDetail($orderId){
             $result[$count+1] = $amountField;
             $count += 2;
         }
-        
         return $result;
     }
 }
 
+function checkShoppingCart($customerId){
+    $myDatabase = new database();
+    $query = "SELECT cart_id FROM school_project.shoppingCart_tbl WHERE customer_id= ".$customerId;
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($idField);
+        $stmt->fetch();
+        if(strcmp($idField,"")){
+            return $idField;
+        }
+        else{
+            return false;
+        }
+    }
+}
 
+function addNewShoppingCart($customerId){
+    $myDatabase = new database();
+    $query = "INSERT INTO school_project.shoppingCart_tbl
+    (
+        customer_id
+    ) VALUE ("
+        .$customerId.
+    ")";
+    echo($query);
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+function loadCartDetailProductAmount($productId,$cartId){
+    $myDatabase = new database();
+    $query = "SELECT cartProduct_amount from school_project.shoppingCartDetail_tbl WHERE product_id=".$productId." AND cart_id=".$cartId; 
+    $stmt= $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($amountField);
+        $stmt->fetch();
+        $stmt->close();
+        return $amountField;
+    }
+}
+
+function loadCustomerIdFromCart($cartId){
+    $myDatabase = new database();
+    $query = "SELECT customer_id FROM school_project.shoppingCart_tbl WHERE cart_id=".$cartId; 
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->bind_result($IdField);
+        $stmt->fetch();
+        $stmt->close();
+        return $IdField;
+    }
+}
+
+function addNewOrder($customerId,$cartId,$orderAddress){
+    $myDatabase = new database();
+    $query = "INSERT INTO school_project.order_tbl(
+        order_id,
+        customer_id,
+        order_sum,
+        order_date,
+        order_status,
+        order_address
+    ) VALUE("
+        .$cartId.","
+        .$customerId.","
+        ."0".","
+        ."curdate(),"
+        ."\"processing\"".","
+        ."\"".$orderAddress."\""
+    .")";
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+function addOrderDetail($orderId,$productId,$productAmount,$orderSum){
+    $myDatabase = new database();
+    $query = "INSERT INTO school_project.orderDetail_tbl(
+        order_id,
+        product_id,
+        orderDetail_amount,
+        orderDetail_sum
+        ) VALUE("
+            .$orderId.","
+            .$productId.","
+            .$productAmount.","
+            .$orderSum
+        .")";
+    $stmt = $myDatabase->prepare($query);
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}
+
+function deleteCart($cartId){
+    $myDatabase = new database();
+    $query = "DELETE FROM  school_project.shoppingCartDetail_tbl WHERE cart_id=" .$cartId;
+    $stmt = $myDatabase->prepare($query);
+    if($stmt){
+        $stmt->execute();
+        $stmt->close();
+    }
+}

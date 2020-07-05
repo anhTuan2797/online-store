@@ -196,7 +196,7 @@ function showUpdateProductForm(
 }
 
 // show update order form
-function showUpdateOrderForm(orderId, customerId, orderDate,orderAddress) {
+function showUpdateOrderForm(orderId, customerId, orderDate, orderAddress) {
     $.ajax({
         type: "get",
         url: "loadOrderDetail.php",
@@ -208,8 +208,8 @@ function showUpdateOrderForm(orderId, customerId, orderDate,orderAddress) {
             var text = '<div class="order-update-form">' +
                 '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
                 '<label for="detailProductId">Address </label>' +
-                '<input type="text" name="orderFormAddress" id="orderFormAddress" value="'+orderAddress+'">' +
-                '<button onclick="updateOrderAddress('+orderId+')">change</button>'+
+                '<input type="text" name="orderFormAddress" id="orderFormAddress" value="' + orderAddress + '">' +
+                '<button onclick="updateOrderAddress(' + orderId + ')">change</button>' +
                 '<p id="errorMessage"></p>' +
                 '<form id="orderDetailBox" style="border: 1px solid black">' +
                 '<label for="detailProductId">Product Id: </label>' +
@@ -218,7 +218,7 @@ function showUpdateOrderForm(orderId, customerId, orderDate,orderAddress) {
                 '<div id="orderFormProductResult"></div>' +
                 '</form>' +
                 '<div class="order-detail" id="orderDetailResult">' +
-                result+
+                result +
                 '</div>' +
                 '</div>';
             $("#updateModal").append(text);
@@ -241,7 +241,7 @@ function showOrderDetail(orderId, customerId, orderDate, orderAddress) {
                 '<h1>Order id: ' + '<span style="color: red" id="formOrderId">' + orderId + '</span>' + '<br>Customer id: ' + '<span style="color: red">' + customerId + '</span>' + '<br>Date: ' + '<span style="color: red">' + orderDate + '</span>' + '</h1>' +
                 '<p id="errorMessage"></p>' +
                 '<div class="order-detail">' +
-                result+
+                result +
                 '</div>' +
                 '</div>';
             $("#updateModal").append(text);
@@ -322,7 +322,7 @@ function updateProduct(productId) {
     }
 }
 // update order address
-function updateOrderAddress(orderId){
+function updateOrderAddress(orderId) {
     var orderNewAddress = $('#orderFormAddress').val();
     $.ajax({
         type: "post",
@@ -616,13 +616,13 @@ function addProduct() {
 }
 
 // search order
-function searchOrder(){
+function searchOrder() {
     var orderId = $('#orderId').val();
     var customerId = $('#customerId').val();
     var orderSum = $('#orderSum').val();
-    var orderDate= $('#orderDate').val();
+    var orderDate = $('#orderDate').val();
     var orderStatus = $('#orderStatus').val();
-    if(orderId){
+    if (orderId) {
         $.ajax({
             type: "get",
             url: "loadOrderById.php",
@@ -634,9 +634,9 @@ function searchOrder(){
                 $('#resultTable').append(result);
             }
         });
-    } else{
-        if(!customerId) customerId=0;
-        if(!orderSum) orderSum =0;
+    } else {
+        if (!customerId) customerId = 0;
+        if (!orderSum) orderSum = 0;
         $.ajax({
             type: "get",
             url: "loadOrderByOther.php",
@@ -663,7 +663,7 @@ function addProductToOrder(productId, productPrice) {
         url: "addProductToOrder.php",
         data: {
             orderId: orderId,
-            productId : productId,
+            productId: productId,
             productAmount: productAmount,
             productPrice: productPrice
         },
@@ -672,8 +672,8 @@ function addProductToOrder(productId, productPrice) {
                 type: "post",
                 url: "addOrderSum.php",
                 data: {
-                    orderId:orderId,
-                    orderNewSum: productPrice*productAmount
+                    orderId: orderId,
+                    orderNewSum: productPrice * productAmount
                 },
                 success: function (response) {
                     $.ajax({
@@ -696,34 +696,34 @@ function addProductToOrder(productId, productPrice) {
 }
 
 // remove a product from order
-function removeOneProduct(productId,orderId,productAmount,productSum){
-    if(productAmount>1){
-    var oneProductPrice = productSum/productAmount;
-    $.ajax({
-        type: "post",
-        url: "removeOneProduct.php",
-        data: {
-            productId: productId,
-            orderId: orderId,
-            productPrice: oneProductPrice
-        },
-        success: function (response) {
-            $.ajax({
-                type: "get",
-                url: "loadOrderDetail.php",
-                data: {
-                    orderId: orderId,
-                    orderStatus: "processing"
-                },
-                success: function (result) {
-                    $('#orderDetailResult').empty();
-                    $('#orderDetailResult').append(result);
-                    loadAllOrder();
-                }
-            });
-        }
-    });
-}
+function removeOneProduct(productId, orderId, productAmount, productSum) {
+    if (productAmount > 1) {
+        var oneProductPrice = productSum / productAmount;
+        $.ajax({
+            type: "post",
+            url: "removeOneProduct.php",
+            data: {
+                productId: productId,
+                orderId: orderId,
+                productPrice: oneProductPrice
+            },
+            success: function (response) {
+                $.ajax({
+                    type: "get",
+                    url: "loadOrderDetail.php",
+                    data: {
+                        orderId: orderId,
+                        orderStatus: "processing"
+                    },
+                    success: function (result) {
+                        $('#orderDetailResult').empty();
+                        $('#orderDetailResult').append(result);
+                        loadAllOrder();
+                    }
+                });
+            }
+        });
+    }
 }
 
 //change to customer table
@@ -802,36 +802,29 @@ function changeToProductsTable() {
 }
 
 // sign up function
-function signUp(){
+function signUp() {
     $('#signUpErrorMessage').empty();
-    var customerName=$('#signUpNameInput').val();
-    var customerSex=$('#signUpGenderInput:checked').val();
-    var customerEmail=$('#signUpEmailInput').val();
+    var customerName = $('#signUpNameInput').val();
+    var customerSex = $('#signUpGenderInput:checked').val();
+    var customerEmail = $('#signUpEmailInput').val();
     var customerTel = $('#signUpTelInput').val();
     var customerPassword = $('#signUpPasswordInput').val();
     var customerRePassword = $('#signUpRePasswordInput').val();
-    if(!customerName){
+    if (!customerName) {
         $('#signUpErrorMessage').append("please enter your name");
-    }
-    else if(!customerSex){
+    } else if (!customerSex) {
         $('#signUpErrorMessage').append("please choose your gender");
-    }
-    else if(!customerEmail){
+    } else if (!customerEmail) {
         $('#signUpErrorMessage').append("please enter your email");
-    }
-    else if(!customerTel){
+    } else if (!customerTel) {
         $('#signUpErrorMessage').append("please enter your telephone number");
-    }
-    else if(!customerPassword){
+    } else if (!customerPassword) {
         $('#signUpErrorMessage').append("please enter your password");
-    }
-    else if(!customerRePassword){
+    } else if (!customerRePassword) {
         $('#signUpErrorMessage').append("please confirm your password");
-    }
-    else if(customerRePassword!=customerPassword){
+    } else if (customerRePassword != customerPassword) {
         $('#signUpErrorMessage').append("your passwords is not match");
-    }
-    else{
+    } else {
         $.ajax({
             type: "post",
             url: "addNewCustomer.php",
@@ -850,37 +843,103 @@ function signUp(){
 }
 
 // login function
-function login(){
+function login() {
     $('#loginErrorMessage').empty();
     var customerEmail = $('#loginAccountInput').val();
     var customerPassword = $('#loginPasswordInput').val();
-    if(!customerEmail){
+    if (!customerEmail) {
         $('#loginErrorMessage').append("please enter your email");
-    }
-    else if(!customerPassword){
+    } else if (!customerPassword) {
         $('#loginErrorMessage').append("please enter your password");
+    } else {
+        $.ajax({
+            type: "post",
+            url: "login.php",
+            data: {
+                customerEmail: customerEmail,
+                customerPassword: customerPassword
+            },
+            success: function (result) {
+                if (result == "wrong email or password") {
+                    $('#loginErrorMessage').append(result);
+                } else {
+                    var url = result;
+                    window.location = url;
+                }
+            }
+        });
     }
-    else{
-    $.ajax({
-        type: "post",
-        url: "login.php",
-        data: {
-            customerEmail: customerEmail,
-            customerPassword: customerPassword
-        },
-        success: function (result) {
-            if(result=="wrong email or password"){
-            $('#loginErrorMessage').append(result);
-            }
-            else{
-                var url = result;
-                window.location = url;
-            }
-        }
-    });
-}
 }
 
 function test() {
     alert("click");
+}
+
+function deleteProductFromCart(cartId, productId) {
+    $.ajax({
+        type: "post",
+        url: "deleteProductFromCart.php",
+        data: {
+            cartId: cartId,
+            productId: productId
+        },
+        success: function (response) {
+            window.location = 'cart.php';
+        }
+    });
+}
+
+function changeProductAmount(cartId, productId) {
+    var amount = $('#cartProductInput' + productId).val();
+    $.ajax({
+        type: "post",
+        url: "changeProductAmount.php",
+        data: {
+            cartId: cartId,
+            productId: productId,
+            productAmount: amount
+        },
+        success: function (result) {
+            $.ajax({
+                type: "get",
+                url: "calculateCartSum.php",
+                data: {
+                    cartId: cartId
+                },
+                success: function (result) {
+                    $('#cartSum').empty();
+                    $('#cartSum').append(result);
+                }
+                });
+           
+        }
+    });
+}
+
+function showCheckoutNotification(cartId) {
+    var cartSum = $('#cartSum').text();
+    var text = '<div class="modal" style="display: block;" id="notificationModal">' +
+        '<div class="notification">' +
+        '<p style="color: red;">total cost: ' + cartSum + '</p>' +
+        '<p>please enter your order address?</p>' +
+        '<input type="text" id="cartAddressInput">'+
+        ' <button  onclick="addOrderFromCart('+cartId+')">yes</button>' +
+        '</div>' +
+        '</div>';
+    $('#checkoutNotification').append(text);
+}
+
+function addOrderFromCart(cartId){
+    var orderAddress = $('#cartAddressInput').val();
+    $.ajax({
+        type: "post",
+        url: "addOrderFromCart.php",
+        data: {
+            cartId:cartId,
+            orderAddress: orderAddress
+        },
+        success: function (response) {
+            window.location = 'cart.php';
+        }
+    });
 }

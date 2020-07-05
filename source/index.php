@@ -16,7 +16,75 @@
 <script>
     $(function () {
         $('#mainFooter').load('footer.html');
+        
     })
+    function sortByAscPrice(){
+        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
+        console.log(url);
+        var res = url.split("&");
+        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01)";
+        console.log(url);
+        window.location = url;
+    }
+
+    function sortByDescPrice(){
+        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
+        var res = url.split("&");
+        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01) desc";
+        window.location = url;
+    }
+
+    function addToShoppingCart(productId){
+        var customerId = "<?php if(isset($_SESSION['userId'])){
+            echo($_SESSION['userId']);
+        }
+        else{
+            echo"";
+        } ?>";
+        if(customerId){
+            $.ajax({
+                type: "post",
+                url: "addProductToShoppingCart.php",
+                data: {
+                    customerId: customerId,
+                    productId: productId,
+                    productAmount: 1
+                },
+                success: function (response) {
+                    
+                }
+            });
+        }
+        else{
+            openLoginModal();
+        }
+    }
+
+    function buyNow(productId){
+        var customerId = "<?php if(isset($_SESSION['userId'])){
+            echo($_SESSION['userId']);
+        }
+        else{
+            echo"";
+        } ?>";
+        if(customerId){
+            $.ajax({
+                type: "post",
+                url: "addProductToShoppingCart.php",
+                data: {
+                    customerId: customerId,
+                    productId: productId,
+                    productAmount: 1
+                },
+                success: function (response) {
+                    window.location = 'cart.php';
+                }
+            });
+        }
+        else{
+            openLoginModal();
+        }
+    }
 </script>
 
 <body>
@@ -54,7 +122,14 @@
                 </div>
             </li>
             <li>
-                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            <?php
+                if(!isset($_SESSION['userId'])){
+                echo '<a href="#"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                else {
+                    echo '<a href="cart.php"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                ?>
             </li>
         </ul>
         <div class="modal" id="modal">
@@ -198,8 +273,8 @@
                         else{
                         echo"<p><span style='text-decoration: line-through;'>".$priceField."đ"."</span>"." "."<span style='color: red;'>".$priceField*(1-$saleField*0.01)."đ"."</span>"."</p>";
                         }
-                        echo"<div><button type='button' onclick='test()'><i class='fas fa-shopping-cart'></i></button></div>";
-                        echo"<div><button type='button' onclick='test()'>buy now</button></div>";
+                        echo"<div><button type='button' onclick='addToShoppingCart(".$idField.")'><i class='fas fa-shopping-cart'></i></button></div>";
+                        echo"<div><button type='button' onclick='buyNow(".$idField.")'>buy now</button></div>";
                         echo"</div>";
                         echo"</div>";
                    }
@@ -209,21 +284,4 @@
     </main>
     <div id="mainFooter"></div>
 </body>
-<script>
-    function sortByAscPrice(){
-        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
-        console.log(url);
-        var res = url.split("&");
-        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01)";
-        console.log(url);
-        window.location = url;
-    }
-
-    function sortByDescPrice(){
-        var url = "<?php  echo ($_SERVER['REQUEST_URI']); ?>";
-        var res = url.split("&");
-        url = res[0]+"&"+res[1]+"&orderBy=product_price*(1-product_sale*0.01) desc";
-        window.location = url;
-    }
-</script>
 </html>

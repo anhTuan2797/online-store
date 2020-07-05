@@ -53,7 +53,14 @@
                 </div>
             </li>
             <li>
-                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            <?php
+                if(!isset($_SESSION['userId'])){
+                echo '<a href="#"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                else {
+                    echo '<a href="cart.php"><i class="fas fa-shopping-cart"></i></a>';
+                }
+                ?>
             </li>
         </ul>
         <div class="modal" id="modal">
